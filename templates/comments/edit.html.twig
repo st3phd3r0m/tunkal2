@@ -1,0 +1,10 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Modérer commentaire de {{ comment.pseudo }} le {{ comment.sentAt|date('d-m-Y H:i:s') }}{% endblock %}
+{% block h1 %}Modérer commentaire de {{ comment.pseudo }} le {{ comment.sentAt|date('d-m-Y H:i:s') }}{% endblock %}
+{% block entity %}Commentaires{% endblock %}
+{% block body %}
+	{{ include('comments/_form.html.twig', {'button_label': 'Modérer'}) }}
+	<a href="{{ path('comments_index') }}" class="btn btn-primary" >Retour à la liste</a>
+	{{ include('comments/_delete_form.html.twig') }}
+{% endblock %}

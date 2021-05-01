@@ -1,0 +1,46 @@
+{{ form_start(form) }}
+
+{{ form_row(form.position) }}
+{{ form_row(form.position_order) }}
+{{ form_row(form.type) }}
+{{ form_row(form.is_active) }}
+
+<div class="form-group" id="external-link-field">
+	<label for="externalLink">Saisir un lien sortant</label>
+	<input class="form-group w-100" name="externalLink" id="externalLink" value="{{ (link.type == 'external') ? link.hyperlink : '' }}">
+</div>
+
+<div class="form-group" id="previous-concerts-fields-list" data-url-path="{{ absolute_url(path('give_posts')) }}">
+	<label for="select_previous_concert">Sélectionnez un concert passé</label>
+	<select class="form-group w-100" name="previous-concerts" id="select_previous_concert">
+		<option value="{{ (link.type == '/previous/concerts/') ? link.hyperlink |replace({'/previous/concerts/': ''}) : '' }}">
+			{{ (link.type == '/previous/concerts/') ? link.title : '' }}
+		</option>
+	</select>
+</div>
+
+<div class="form-group" id="news-fields-list" data-url-path="{{ absolute_url(path('give_posts')) }}">
+	<label for="select_news">Sélectionnez un article</label>
+	<select class="form-group w-100" name="news" id="select_news">
+		<option value="{{ (link.type == '/news/') ? link.hyperlink |replace({'/news/': ''}) : '' }}">
+			{{ (link.type == '/news/') ? link.title : '' }}
+		</option>
+	</select>
+</div>
+
+
+
+{{ form_row(form.title) }}
+
+{{ form_row(form.image_alt) }}
+
+{{ form_row(form.content) }}
+
+{{ form_row(form.url) }}
+
+{{ form_row(form.imageFile) }}
+
+{{ form_row(form.uploaded_at) }}
+
+<button class="btn btn-success my-5">{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

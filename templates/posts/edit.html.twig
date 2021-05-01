@@ -1,0 +1,13 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Editer Article{% endblock %}
+{% block h1 %}Editer Article{% endblock %}
+{% block entity %}Articles{% endblock %}
+{% block body %}
+	{{ include('posts/_form.html.twig', {'button_label': 'Modifier'}) }}
+	<a href="{{ path('posts_index') }}" class="btn btn-primary">back to list</a>
+	{{ include('posts/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+	{# {{ encore_entry_script_tags('adminPosts') }} #}
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Article : "{{ post.title }}"{% endblock %}
+{% block h1 %}Article : "{{ post.title }}"{% endblock %}
+{% block entity %}Articles{% endblock %}
+
+{% block body %}
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Title</th>
+				<td>{{ post.title }}</td>
+			</tr>
+			<tr>
+				<th>MetaTitle</th>
+				<td>{{ post.metaTitle }}</td>
+			</tr>
+			<tr>
+				<th>MetaDescription</th>
+				<td>{{ post.metaDescription }}</td>
+			</tr>
+			<tr>
+				<th>Content</th>
+				<td>{{ post.content|raw }}</td>
+			</tr>
+			<tr>
+				<th>Images d'illustration</th>
+				<td>
+				{% for image in post.images %}
+				<img src="{{ asset('images/'~ image.name ) | imagine_filter('min300') }}" alt="Image d'illustration de la sortie : '{{ post.title }}'">
+				{% else %}
+				Aucune image d'illustration pour ce produit
+				{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Mots-clés</th>
+				<td>
+					{% for keyWords in post.keywords %}
+						#{{ keyWords }}
+					{% else %}
+						Pas de mot-clés pour cet article
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Catégorie</th>
+				<td>
+					{{ post.category.name }}
+				</td>
+			</tr>
+			<tr>
+				<th>concert_location</th>
+				<td>
+				{{ post.concertLocation }}
+				</td>
+			</tr>
+			<tr>
+				<th>concert_expected_at</th>
+				<td>{{ post.concertExpectedAt ? post.concert_expected_at|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Created_at</th>
+				<td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Slug</th>
+				<td>{{ post.slug }}</td>
+			</tr>
+		</tbody>
+	</table>
+    <a href="{{ path('posts_index') }}">back to list</a>
+    <a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+    {{ include('posts/_delete_form.html.twig') }}
+{% endblock %}

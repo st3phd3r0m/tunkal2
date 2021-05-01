@@ -1,0 +1,11 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Nouvelle categorie{% endblock %}
+{% block h1 %}Nouvelle categorie{% endblock %}
+{% block entity %}Categories{% endblock %}
+{% block body %}
+
+    {{ include('categories/_form.html.twig') }}
+
+    <a href="{{ path('categories_index') }}">back to list</a>
+{% endblock %}

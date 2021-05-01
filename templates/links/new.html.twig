@@ -1,0 +1,12 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Ajouter un lien{% endblock %}
+{% block h1 %}Ajouter un lien{% endblock %}
+{% block entity %}Liens{% endblock %}
+{% block body %}
+    {{ include('links/_form.html.twig') }}
+    <a href="{{ path('links_index') }}" class="btn btn-primary">Retour à la liste</a>
+{% endblock %}
+{% block javascripts %}
+	{# {{ encore_entry_script_tags('adminLink') }} #}
+{% endblock %}

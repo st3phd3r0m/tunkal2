@@ -37,6 +37,13 @@ class Posts
     private $content;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     */
+    private $metaTitle;
+
+    /**
      * @ORM\Column(type="text")
      *
      * @var string
@@ -51,7 +58,7 @@ class Posts
     private $keywords = [];
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="posts", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="post", cascade={"persist"})
      *
      * @var Collection|Images[]
      */
@@ -117,18 +124,6 @@ class Posts
         return $this;
     }
 
-    public function getMetaDescription(): ?string
-    {
-        return $this->metaDescription;
-    }
-
-    public function setMetaDescription(string $metaDescription): self
-    {
-        $this->metaDescription = $metaDescription;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
@@ -137,6 +132,30 @@ class Posts
     public function setContent(string $content): self
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getMetaTitle(): ?string
+    {
+        return $this->metaTitle;
+    }
+
+    public function setMetaTitle(string $metaTitle): self
+    {
+        $this->metaTitle = $metaTitle;
+
+        return $this;
+    }
+
+    public function getMetaDescription(): ?string
+    {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription(string $metaDescription): self
+    {
+        $this->metaDescription = $metaDescription;
 
         return $this;
     }

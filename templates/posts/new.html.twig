@@ -1,0 +1,12 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Nouvel article{% endblock %}
+{% block h1 %}Nouvel article{% endblock %}
+{% block entity %}Articles{% endblock %}
+{% block body %}
+	{{ include('posts/_form.html.twig') }}
+	<a href="{{ path('posts_index') }}" class="btn btn-primary">back to list</a>
+{% endblock %}
+{% block javascripts %}
+	{# {{ encore_entry_script_tags('adminPosts') }} #}
+{% endblock %}

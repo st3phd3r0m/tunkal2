@@ -1,0 +1,94 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block h1 %}Dashboard{% endblock %}
+{% block entity %}Dashboard{% endblock %}
+{% block body %}
+
+		<!-- Small boxes (Stat box) -->
+		<div class="row">
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-warning">
+					<div class="inner">
+						<h3>{{ nbrUsers }}</h3>
+						<p>Utilisateurs</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-bag"></i>
+					</div>
+					<a href="{{ path('users_index') }}" class="small-box-footer">Voir les utilisateurs
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-success">
+					<div class="inner">
+						<h3>{{ nbrPosts }}</h3>
+						<p>Articles</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-bag"></i>
+					</div>
+					<a href="{{ path('posts_index') }}" class="small-box-footer">Voir les Articles
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{ nbrCategories }}</h3>
+						<p>Catégories</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-bag"></i>
+					</div>
+					<a href="{{ path('categories_index') }}" class="small-box-footer">Voir les Catégories
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-success">
+					<div class="inner">
+						<h3>{{ nbrComments }}</h3>
+						<p>Commentaires articles</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-bag"></i>
+					</div>
+					<a href="{{ path('comments_index') }}" class="small-box-footer">Voir les commentaires
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{ nbrLinks }}</h3>
+						<p>Liens</p>
+					</div>
+					<div class="icon">
+						<i class="ion ion-bag"></i>
+					</div>
+					<a href="{{ path('links_index') }}" class="small-box-footer">Voir les liens
+						<i class="fas fa-arrow-circle-right"></i>
+					</a>
+				</div>
+			</div>
+			<!-- ./col -->
+
+		</div>
+		<!-- /.row -->
+
+{% endblock %}
