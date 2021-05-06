@@ -13,28 +13,49 @@
 	{{ form_row(form.slug) }} 
 {% endif %}
 
-<fieldset class="form-group">
+<fieldset class="form-group" id="imageFields" data-counter="{{ form.images|length }}" data-images="{{ images|json_encode() }}">
 	<legend class="col-form-label">{{ form.images.vars.label }}</legend>
 	<div id="{{ form.images.vars.id }}">
-
-		<ul id="images-fields-list" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}" data-widget-tags="{{ '<li></li>'|e }}" data-widget-counter="{{ form.images|length }}">
-			{% for imagesField in form.images %}
-				<li>
-					<a href="#" class="ml-5">Retirer l'image du produit ?</a>
-					{{ form_errors(imagesField) }}
-					{{ form_widget(imagesField) }}
-
-				</li>
-			{% endfor %}
+		<ul id="images-fields-list">
+			<image-field v-for="(n, index) in counter" :key="index" :fieldid="index" :image="images[index]"></image-field>
 		</ul>
-
 	</div>
-	<a href="#" class="add-another-image-collection-widget" data-list-selector="#images-fields-list">
+
+	<a href="#" v-on:click="addImageField">
 		<i class="fas fa-plus"></i>
 		Ajouter une image
 	</a>
+
 </fieldset>
 <button class="btn btn-success my-5">{{ button_label|default('Save') }}</button>
 
+<template id="image-field-template" type="text/x-template">
+	<li v-if="toShow">
+		<div :id="'posts_images_'+fieldid" class="row align-items-center p-2">
+			<fieldset class="form-group col-8">
+				<div class="custom-file">
+					<input type="file" :id="'posts_images_'+fieldid+'_imageFile_file'" :name="'posts[images]['+fieldid+'][imageFile][file]'" class="custom-file-input"  v-on:change="updateFile" />
+					<label :for="'posts_images_'+fieldid+'_imageFile_file'" class="custom-file-label">
+					</label>
+				</div>
+			</fieldset>
+			<div class="col-3">
+				<img class="w-50" v-if="updated" :src="updatedFile" alt="">
+				<img class="w-50" v-else :src="'/media/cache/min300/images/'+image" alt="">
+			</div>
+			<a href="#" v-on:click="removeImageField">
+				<i class="fas fa-minus"></i>
+				Enlever cette image
+			</a>
+		</div>
+		
+	</li>
+</template>
+
+
 {{ form_row(form._token) }}
 {{ form_end(form, {'render_rest': false}) }}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('postForm') }}
+{% endblock %}

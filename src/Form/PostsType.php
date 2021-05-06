@@ -59,12 +59,6 @@ class PostsType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez saisir un titre.',
                     ]),
-                    new Length([
-                        'min' => 50,
-                        'minMessage' => 'Le titre doit comporter au minimum {{ limit }} caractères.',
-                        'max' => 70,
-                        'maxMessage' => 'Le titre doit comporter au maximum {{ limit }} caractères.',
-                    ]),
                 ],
             ])
             ->add('metaDescription', TextareaType::class, [

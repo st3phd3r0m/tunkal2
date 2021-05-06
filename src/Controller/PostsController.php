@@ -43,7 +43,7 @@ class PostsController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             foreach ($post->getImages() as $image) {
-                $image->setPosts($post);
+                $image->setPost($post);
             }
             $post->setKeywords(array_filter(explode('#', $form->get('keywords')->getData())));
             $post->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
@@ -76,7 +76,6 @@ class PostsController extends AbstractController
     {
         //Récupération des noms de fichiers images pour suppression ultérieure des miniatures
         $images = $post->getImages();
-        $oldImages = [];
         foreach ($images as $key => $image) {
             $oldImages[] = $image->getName();
         }
@@ -98,7 +97,7 @@ class PostsController extends AbstractController
                 if (null === $image->getName() && null !== $image->getImageFile()) {
                     //Si l'utilisateur ajoute une image
                     //on ajoute l'objet post comme attribut de l'objet image
-                    $image->setPosts($post);
+                    $image->setPost($post);
                     $images->set($key, $image);
                 } elseif (null === $image->getName() && null === $image->getImageFile()) {
                     //Si l'utilisateur veut la suppression d'une des images dans la collection
@@ -109,7 +108,7 @@ class PostsController extends AbstractController
                 } elseif (null !== $image->getName() && null === $image->getImageFile()) {
                     //Si l'utilisateur veut garder l'image dans la collection
                     //on ajoute l'objet product comme attribut de l'objet image
-                    $image->setPosts($post);
+                    $image->setPost($post);
                     $images->set($key, $image);
                 }
             }
@@ -142,6 +141,7 @@ class PostsController extends AbstractController
 
         return $this->render('posts/edit.html.twig', [
             'post' => $post,
+            'images'=> $oldImages,
             'form' => $form->createView(),
         ]);
     }
