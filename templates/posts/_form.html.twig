@@ -1,22 +1,29 @@
 {{ form_start(form) }}
 
 {{ form_row(form.title) }}
+{{ form_row(form.slug) }} 
 {{ form_row(form.content) }}
-{{ form_row(form.metaTitle) }}
-{{ form_row(form.metaDescription) }}
+
+<div id="metaTitle" data-constraints="{{ form.metaTitle.vars.errors.form.config.options.constraints[1]|json_encode }}">
+	{{ form_label(form.metaTitle) }}
+	<error-title :message-title="errorTitleMessage" ></error-title>
+	{{ form_widget(form.metaTitle, {'attr': {'v-on:keyup':'onCheckLength'}}) }}
+</div>
+<div id="metaDescription" data-constraints="{{ form.metaDescription.vars.errors.form.config.options.constraints[1]|json_encode }}">
+	{{ form_label(form.metaDescription) }}
+	<error-description :message-description="errorDescriptionMessage" ></error-description>
+	{{ form_widget(form.metaDescription, {'attr': {'v-on:keyup':'onCheckLength'}}) }}
+</div>
+
 {{ form_row(form.keywords) }}
 {{ form_row(form.category) }}
 {{ form_row(form.concert_location) }}
 {{ form_row(form.concert_expected_at) }}
 
-{% if form.slug is defined %}
-	{{ form_row(form.slug) }} 
-{% endif %}
-
 <fieldset class="form-group" id="imageFields" data-counter="{{ form.images|length }}" data-images="{{ images|json_encode() }}">
 	<legend class="col-form-label">{{ form.images.vars.label }}</legend>
 	<div id="{{ form.images.vars.id }}">
-		<ul id="images-fields-list">
+		<ul id="images-fields-list" class="list-group">
 			<image-field v-for="(n, index) in counter" :key="index" :fieldid="index" :image="images[index]"></image-field>
 		</ul>
 	</div>
@@ -28,30 +35,6 @@
 
 </fieldset>
 <button class="btn btn-success my-5">{{ button_label|default('Save') }}</button>
-
-<template id="image-field-template" type="text/x-template">
-	<li v-if="toShow">
-		<div :id="'posts_images_'+fieldid" class="row align-items-center p-2">
-			<fieldset class="form-group col-8">
-				<div class="custom-file">
-					<input type="file" :id="'posts_images_'+fieldid+'_imageFile_file'" :name="'posts[images]['+fieldid+'][imageFile][file]'" class="custom-file-input"  v-on:change="updateFile" />
-					<label :for="'posts_images_'+fieldid+'_imageFile_file'" class="custom-file-label">
-					</label>
-				</div>
-			</fieldset>
-			<div class="col-3">
-				<img class="w-50" v-if="updated" :src="updatedFile" alt="">
-				<img class="w-50" v-else :src="'/media/cache/min300/images/'+image" alt="">
-			</div>
-			<a href="#" v-on:click="removeImageField">
-				<i class="fas fa-minus"></i>
-				Enlever cette image
-			</a>
-		</div>
-		
-	</li>
-</template>
-
 
 {{ form_row(form._token) }}
 {{ form_end(form, {'render_rest': false}) }}

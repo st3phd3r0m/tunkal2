@@ -45,10 +45,10 @@ class PostsType extends AbstractType
             ->add('content', TextareaType::class, [
                 // 'config_name' => 'main_config',
                 'required' => true,
-                'label' => 'Description/contenu de l\'article : ',
+                'label' => 'Contenu de l\'article : ',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez saisir la description de l\'article',
+                        'message' => 'Veuillez saisir le contenu de l\'article',
                     ]),
                 ],
             ])
@@ -58,6 +58,12 @@ class PostsType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir un titre.',
+                    ]),
+                    new Length([
+                        'min' => 50,
+                        'minMessage' => 'Le titre doit comporter au minimum {{ limit }} caractères.',
+                        'max' => 70,
+                        'maxMessage' => 'Le titre doit comporter au maximum {{ limit }} caractères.',
                     ]),
                 ],
             ])

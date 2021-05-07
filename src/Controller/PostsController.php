@@ -56,6 +56,7 @@ class PostsController extends AbstractController
         return $this->render('posts/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
+            'images'=> []
         ]);
     }
 
@@ -76,6 +77,7 @@ class PostsController extends AbstractController
     {
         //Récupération des noms de fichiers images pour suppression ultérieure des miniatures
         $images = $post->getImages();
+        $oldImages = [];
         foreach ($images as $key => $image) {
             $oldImages[] = $image->getName();
         }
