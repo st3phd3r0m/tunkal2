@@ -1,3 +1,3 @@
-import './components/admin/fillSlugInput.js'
-import './components/admin/imageFieldsManager.js'
-import './components/admin/metaTitleConstraints'
+import './components/admin/post/fillSlugInput.js'
+import './components/admin/post/imageFieldsManager.js'
+import './components/admin/post/metaConstraints'
