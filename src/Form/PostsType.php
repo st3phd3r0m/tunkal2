@@ -117,18 +117,27 @@ class PostsType extends AbstractType
                         'message' => 'La date est invalide',
                     ]),
                 ],
+            ])
+            ->add('slug', TextType::class, [
+                'required' => false,
+                'label' => 'titre ("slug") en barre d\'url : ',
+                // 'constraints' => [
+                //     new NotBlank([
+                //         'message' => 'Veuillez saisir un slug.',
+                //     ])
+                // ]
             ]);
-        if (!in_array($options['data']->getSlug(), $firmSlugs)) {
-            $builder->add('slug', TextType::class, [
-                        'required' => false,
-                        'label' => 'titre ("slug") en barre d\'url : ',
-                        // 'constraints' => [
-                        //     new NotBlank([
-                        //         'message' => 'Veuillez saisir un slug.',
-                        //     ])
-                        // ]
-                    ]);
-        }
+        // if (!in_array($options['data']->getSlug(), $firmSlugs)) {
+        //     $builder->add('slug', TextType::class, [
+        //                 'required' => false,
+        //                 'label' => 'titre ("slug") en barre d\'url : ',
+        //                 // 'constraints' => [
+        //                 //     new NotBlank([
+        //                 //         'message' => 'Veuillez saisir un slug.',
+        //                 //     ])
+        //                 // ]
+        //             ]);
+        // }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

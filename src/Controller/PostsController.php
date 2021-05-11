@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Posts;
+use App\Entity\Images;
 use App\Form\PostsType;
 use App\Repository\PostsRepository;
+use Doctrine\Persistence\ObjectManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostsController extends AbstractController
 {
+
+    private Filesystem $filesystem;
+
+    public function __construct(Filesystem $filesystem)
+    {
+        $this->filesystem = $filesystem;
+    }
+
     /**
      * @Route("/admin/posts/", name="posts_index", methods={"GET"})
      */
@@ -42,9 +53,6 @@ class PostsController extends AbstractController
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            foreach ($post->getImages() as $image) {
-                $image->setPost($post);
-            }
             $post->setKeywords(array_filter(explode('#', $form->get('keywords')->getData())));
             $post->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
             $entityManager = $this->getDoctrine()->getManager();
@@ -73,85 +81,97 @@ class PostsController extends AbstractController
     /**
      * @Route("/admin/posts/{id}/edit", name="posts_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Posts $post, Filesystem $filesystem): Response
+    public function edit(Request $request, Posts $post): Response
     {
         //Récupération des noms de fichiers images pour suppression ultérieure des miniatures
-        $images = $post->getImages();
-        $oldImages = [];
-        foreach ($images as $key => $image) {
-            $oldImages[] = $image->getName();
-        }
-
+        $oldImages = $post->getImages()->toArray();
+        $oldImagesNames = $this->getImagesNames($oldImages);
         $form = $this->createForm(PostsType::class, $post);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             //on appelle le manager d'entité
             $entityManager = $this->getDoctrine()->getManager();
-
             //On récupère les instances de l'entité Images, instanciées lors de la collection dans le formulaire d'ajout d'images
-            $images = $post->getImages();
-
-            $images_names = [];
-            //Et pour chacune de ces instances,
-            foreach ($images as $key => $image) {
-                $images_names[] = $image->getName();
-                if (null === $image->getName() && null !== $image->getImageFile()) {
-                    //Si l'utilisateur ajoute une image
-                    //on ajoute l'objet post comme attribut de l'objet image
-                    $image->setPost($post);
-                    $images->set($key, $image);
-                } elseif (null === $image->getName() && null === $image->getImageFile()) {
-                    //Si l'utilisateur veut la suppression d'une des images dans la collection
-                    //Alors on enlève l'objet image correspondant de l'objet product
-                    $post->removeImage($image);
-                    //Et on l'enlève de la bdd avec le manager d'entité
-                    $entityManager->remove($image);
-                } elseif (null !== $image->getName() && null === $image->getImageFile()) {
-                    //Si l'utilisateur veut garder l'image dans la collection
-                    //on ajoute l'objet product comme attribut de l'objet image
-                    $image->setPost($post);
-                    $images->set($key, $image);
-                }
-            }
-
+            $newImages = $post->getImages();
+            $newImagesNames = $this->getImagesNames($newImages);
+            $this->deleteImages($oldImagesNames, $newImagesNames, $oldImages, $entityManager);
+            $this->deleteFiles($oldImagesNames, $newImagesNames);
             //Récupération des mots-clés en tant que chaine de caractères et séparation en array avec un délimiteur ";"
             $post->setKeywords(array_filter(explode('#', $form->get('keywords')->getData())));
             $post->setCreatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
-
             $entityManager->flush();
-
-            //Suppression des fichiers miniatures
-            $media_cache = '../public/media/cache/';
-            if ($filesystem->exists($media_cache)) {
-                $filesystem->remove($media_cache);
-            }
-
-            $files_to_delete = array_diff($oldImages, $images_names);
-            foreach ($files_to_delete as $key => $image) {
-                $file_to_delete = '../public/images/'.$image;
-                if ($filesystem->exists($file_to_delete)) {
-                    $filesystem->remove($file_to_delete);
-                }
-            }
-
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'L\'article a bien été modifié.');
-
             return $this->redirectToRoute('posts_index');
         }
-
         return $this->render('posts/edit.html.twig', [
             'post' => $post,
-            'images'=> $oldImages,
+            'images'=> $oldImagesNames,
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     * Undocumented function
+     *
+     * @param Collection|Images[] $imageCollecion
+     * @return array<int, string>
+     */
+    public function getImagesNames($imageCollecion)
+    {
+        $imagesNames = [];
+        foreach ($imageCollecion as $image) {
+            $imagesNames[] = $image->getName();
+        }
+        return $imagesNames;
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param array<int, string> $oldImagesNames
+     * @param array<int, string> $images_names
+     * @param array<int, Images> $oldImages
+     * @param ObjectManager $entityManager
+     * @return Void
+     */
+    public function deleteImages($oldImagesNames, $images_names, $oldImages, $entityManager): Void
+    {
+        $images_to_delete = array_diff($oldImagesNames, $images_names);
+        foreach ($images_to_delete as $key => $image) {
+            //Suppression en bdd de l'ancien jeu d'instances Images
+            if($oldImages[$key]->getName() === $image){
+                $entityManager->remove($oldImages[$key]);
+            }
+        }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array<int, string> $oldImagesNames
+     * @param array<int, string> $images_names
+     * @return Void
+     */
+    public function deleteFiles($oldImagesNames, $images_names): Void
+    {
+        $files_to_delete = array_diff($oldImagesNames, $images_names);
+        foreach ($files_to_delete as $image) {
+            //Suppression des fichiers correspondants
+            $finder = new Finder();
+            $finder->files()->name($image)->in('../public');
+            foreach ($finder as $key => $file) {
+                $fileNameWithExtension[] = $file->getRelativePathname();
+                $this->filesystem->remove( '../public/'.$file->getRelativePathname());
+            }
+        }
+    }
+
+    /**
      * @Route("/admin/posts/{id}", name="posts_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Posts $post, Filesystem $filesystem): Response
+    public function delete(Request $request, Posts $post): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             //Appel du manager de Doctrine
@@ -159,23 +179,15 @@ class PostsController extends AbstractController
 
             //Suppression des images et des miniatures associées au produit
             $images = $post->getImages();
-            foreach ($images as $image) {
-                $miniature = '../public/media/cache/min300/images/'.$image->getName();
-                //Si le fichier existe
-                if ($filesystem->exists($miniature)) {
-                    //Alors on supprime la miniature correspondante
-                    $filesystem->remove($miniature);
-                }
-                $post->removeImage($image);
-                $entityManager->remove($image);
-            }
-
+            $imagesNames = $this->getImagesNames($images);
+            $this->deleteFiles( $this->getImagesNames($images) , []);
+            $this->deleteImages($imagesNames, [], $images, $entityManager);
             //Commentaires associés au produit
             $comments = $post->getComments();
             foreach ($comments as $comment) {
                 //Rupture entre les commentaires et le produit
                 $post->removeComment($comment);
-                //Suppression des commentaires si l'utilisateur le décide
+                //Suppression des commentaires si l'administrateur le décide
                 if ('true' === $request->request->get('delete_related')) {
                     $entityManager->remove($comment);
                 }
