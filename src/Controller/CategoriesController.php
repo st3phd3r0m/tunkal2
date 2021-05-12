@@ -38,7 +38,8 @@ class CategoriesController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
-
+            //Envoi d'un message utilisateur
+            $this->addFlash('success', 'La catégorie a bien été créée.');
             return $this->redirectToRoute('categories_index');
         }
 
@@ -68,7 +69,8 @@ class CategoriesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+            //Envoi d'un message utilisateur
+            $this->addFlash('success', 'La catégorie a bien été modifiée.');
             return $this->redirectToRoute('categories_index');
         }
 
@@ -79,14 +81,22 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="categories_delete", methods={"POST"})
+     * @Route("/{id}", name="categories_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Categories $category): Response
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            //Articles associés à la catégorie
+            $posts = $category->getPosts();
+            foreach ($posts as $post) {
+                //Rupture entre les commentaires et le produit
+                $category->removePost($post);
+            }
             $entityManager->remove($category);
             $entityManager->flush();
+            //Envoi d'un message utilisateur
+            $this->addFlash('success', 'La catégorie a bien été supprimée');
         }
 
         return $this->redirectToRoute('categories_index');
