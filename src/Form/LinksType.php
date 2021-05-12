@@ -28,11 +28,13 @@ class LinksType extends AbstractType
             ->add('position', ChoiceType::class, [
                 'label' => 'Où voulez-vous placer le lien ?',
                 'choices' => [
-                    'Bas de page (footer)' => 'footer',
-                    'Haut de page (header)' => 'header',
+                    'Réseaux sociaux (haut de page)' => 'socnet',
                     'Barre de navigation (haut de page)' => 'nav',
                     'Zone des médias audio/vidéo' => 'media',
                     'copyright' => 'copyright',
+                    'Bas de page (footer)' => 'footer',
+                    'Bannière (haut de page)'=>'banner',
+                    'x-icon (head)'=>'xicon'
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -74,6 +76,9 @@ class LinksType extends AbstractType
                 'label' => 'Type de lien à ajouter',
                 'choices' => [
                     'Lien sortant' => 'external',
+                    'Catégorie' => 'category',
+                    'Bannière (haut de page)'=>'banner',
+                    'x-icon (head)'=>'xicon'
                 ],
                 'constraints' => [
                     new NotBlank([

@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostsController extends AbstractController
 {
-
     private Filesystem $filesystem;
 
     public function __construct(Filesystem $filesystem)

@@ -47,7 +47,7 @@
 			<tr>
 				<th>Catégorie</th>
 				<td>
-					{{ post.category.name }}
+					{{ post.category ? post.category.name : '' }}
 				</td>
 			</tr>
 			<tr>

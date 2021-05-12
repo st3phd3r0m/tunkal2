@@ -9,6 +9,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Slug</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
+                <td>{{ category.slug }}</td>
                 <td>
                     <a href="{{ path('categories_show', {'id': category.id}) }}">show</a>
                     <a href="{{ path('categories_edit', {'id': category.id}) }}">edit</a>

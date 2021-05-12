@@ -20,6 +20,22 @@ class CommentsRepository extends ServiceEntityRepository
         parent::__construct($registry, Comments::class);
     }
 
+    /**
+     * Undocumented function.
+     */
+    public function getNumberOfPages(string $post_slug, int $limit = 5): int
+    {
+        $dql = 'SELECT COUNT(*) FROM comments as c'
+                .' INNER JOIN posts ON c.post_id = posts.id'
+                .' WHERE posts.slug = ? AND c.is_moderated = ?';
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->executeQuery($dql, [$post_slug, true], [ParameterType::STRING, ParameterType::BOOLEAN]);
+        $result = $stmt->fetchOne();
+        $conn->close();
+
+        return (int) ceil($result / $limit);
+    }
+
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */

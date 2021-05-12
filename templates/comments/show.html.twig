@@ -3,12 +3,12 @@
 {% block title %}Commentaire
 	{{ comment.pseudo }}
 	le
-	{{ comment.sentAt|date('d-m-Y H:i:s') }}
+	{{ comment.createdAt|date('d-m-Y H:i:s') }}
 {% endblock %}
 {% block h1 %}Commentaire
 	{{ comment.pseudo }}
 	le
-	{{ comment.sentAt|date('d-m-Y H:i:s') }}
+	{{ comment.createdAt|date('d-m-Y H:i:s') }}
 {% endblock %}
 {% block entity %}Commentaires{% endblock %}
 
@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<th>Ecrit le</th>
-				<td>{{ comment.sentAt|date('d-m-Y H:i:s') }}</td>
+				<td>{{ comment.createdAt|date('d-m-Y H:i:s') }}</td>
 			</tr>
 			<tr>
 				<th>Concernant l'article</th>

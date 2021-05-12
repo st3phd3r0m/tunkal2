@@ -23,6 +23,15 @@ class CategoriesType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('slug', TextType::class, [
+                'required' => false,
+                'label' => 'titre ("slug") en barre d\'url : ',
+                // 'constraints' => [
+                //     new NotBlank([
+                //         'message' => 'Veuillez saisir un slug.',
+                //     ])
+                // ]
+            ])
         ;
     }
 

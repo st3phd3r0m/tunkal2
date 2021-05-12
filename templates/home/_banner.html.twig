@@ -1,0 +1,7 @@
+<a href="{{ path('home') }}" title="Aller à l'accueil">
+    {% if banner is defined and banner != false %}
+        <img class="logoheader" src="{{ asset('images/'~ banner.image)|imagine_filter('min500') }}" alt="{{ banner.imageAlt }}" data-desktop-image="{{ asset('images/'~ banner.image) }}" data-mobile-image="{{ asset('images/'~ banner.image)|imagine_filter('min500') }}">
+    {% else %}
+        Bannière du site
+    {% endif %}
+</a>

@@ -1,0 +1,10 @@
+{% if links()|filter( link => link.position == 'socnet' )|length > 0 %}
+    <div class='socNetWork'>
+        {# Boucle sur liens header #}
+        {% for link in links()|filter( link => link.position == 'socnet' )|sort((a, b) => a.positionOrder <=> b.positionOrder) %}
+            <a href="{{ link.url }}" title="{{ link.title }}" 
+            target="{{ (link.type == "external") ? '_blank' : '_self' }}" >{{ link.content|raw }}</a>
+        {% endfor %}
+        {# Fin Boucle sur liens header #}
+    </div>
+{% endif %}

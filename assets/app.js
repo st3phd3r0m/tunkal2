@@ -6,6 +6,5 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
-
-
+import './styles/normalize.css';
+import './styles/styles.scss';

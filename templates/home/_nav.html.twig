@@ -1,0 +1,22 @@
+{% if links()|filter( link => link.position == 'nav' )|length > 0 %}
+    <nav>
+
+        <!-- Hamburger -->
+        <span id="navMenu" title="Menu">
+            <i class="fas fa-bars"></i>
+        </span>
+        <!-- Fin hamburger -->
+
+        <!-- Barre navigation vue ordi -->
+        <div class="menuPrincipal">
+            <a href="{{ path('home') }}" title="Aller à l'accueil" 
+                target="_self" >Home</a>
+            {# Boucle sur liens nav #}
+            {% for link in links()|filter( link => link.position == 'nav' )|sort((a, b) => a.positionOrder <=> b.positionOrder) %}	
+            <a href="{{ link.url }}" title="{{ link.title }}" 
+                target="{{ (link.type == "external") ? '_blank' : '_self' }}" >{{ link.content }}</a>
+            {% endfor %}
+            {# Fin Boucle sur liens header #}
+        </div>
+    </nav>			
+{% endif %}

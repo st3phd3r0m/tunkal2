@@ -1,7 +1,7 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Categorie : "{{ post.title }}"{% endblock %}
-{% block h1 %}Categorie : "{{ post.title }}"{% endblock %}
+{% block title %}Categorie : "{{ category.name }}"{% endblock %}
+{% block h1 %}Categorie : "{{ category.name }}"{% endblock %}
 {% block entity %}Categories{% endblock %}
 
 {% block body %}
@@ -15,6 +15,10 @@
                 <th>Name</th>
                 <td>{{ category.name }}</td>
             </tr>
+            <tr>
+				<th>Slug</th>
+				<td>{{ category.slug }}</td>
+			</tr>
         </tbody>
     </table>
 
