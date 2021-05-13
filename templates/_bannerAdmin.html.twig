@@ -1,0 +1,6 @@
+{% set banner = links()|filter( link => link.position == 'banner' )|first %}
+{% if banner is defined and banner != false %}
+    <img class="w-100" src="{{ asset('images/'~ banner.image)|imagine_filter('min300') }}" alt="{{ banner.imageAlt }}">
+{% else %}
+    Bannière du site
+{% endif %}

@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/comments")
+ * @Route("/tunkalRestricted/comments")
  */
 class CommentsController extends AbstractController
 {

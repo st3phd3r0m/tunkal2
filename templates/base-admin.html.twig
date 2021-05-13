@@ -52,7 +52,7 @@
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
                 <a href="{{ path('admin') }}" title="Retour vers la page d'accueil administration">
-                    ADMIN
+                    {{ include('_bannerAdmin.html.twig') }}
                 </a>
 
                 <!-- Sidebar -->
@@ -103,31 +103,6 @@
                                     </p>
                                 </a>
                             </li>
-
-                            {# Concerts #}
-                            {# <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-table"></i>
-                                    <p>
-                                        Concerts
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="{{ path('shows_index') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Liste</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ path('shows_new') }}" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Nouveau</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> #}
 
                             {# Gestion des articles #}
                             <li class="nav-item has-treeview">
@@ -240,13 +215,7 @@
                 <!-- Main content -->
                 <div class="content">
                     <div class="container-fluid">
-                    	{% for message in app.flashes('success') %}
-                            <div class="alert alert-success" role="alert">{{ message }}</div>
-                        {% endfor %}
-
-                        {% for message in app.flashes('fail') %}
-                            <div class="alert alert-warning" role="alert">{{ message }}</div>
-                        {% endfor %}
+                        {{ include('_userMessage.html.twig') }}
                         {% block body %}{% endblock %}
                     </div>
 	            </div>

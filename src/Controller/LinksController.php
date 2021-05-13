@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/links")
+ * @Route("/tunkalRestricted/links")
  */
 class LinksController extends AbstractController
 {

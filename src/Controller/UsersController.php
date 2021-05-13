@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/admin/users")
+ * @Route("/tunkalRestricted/users")
  */
 class UsersController extends AbstractController
 {

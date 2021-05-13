@@ -26,7 +26,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/", name="posts_index", methods={"GET"})
+     * @Route("/tunkalRestricted/posts/", name="posts_index", methods={"GET"})
      */
     public function index(PostsRepository $postsRepository, PaginatorInterface $paginator, Request $request): Response
     {
@@ -44,7 +44,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/new", name="posts_new", methods={"GET","POST"})
+     * @Route("/tunkalRestricted/posts/new", name="posts_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -68,7 +68,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/{id}", name="posts_show", methods={"GET"})
+     * @Route("/tunkalRestricted/posts/{id}", name="posts_show", methods={"GET"})
      */
     public function show(Posts $post): Response
     {
@@ -78,7 +78,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/{id}/edit", name="posts_edit", methods={"GET","POST"})
+     * @Route("/tunkalRestricted/posts/{id}/edit", name="posts_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Posts $post): Response
     {
@@ -168,7 +168,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/posts/{id}", name="posts_delete", methods={"DELETE"})
+     * @Route("/tunkalRestricted/posts/{id}", name="posts_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Posts $post): Response
     {
@@ -205,7 +205,7 @@ class PostsController extends AbstractController
     }
 
     /**
-     * @Route("/admin/api/posts", name="give_posts", methods={"GET"})
+     * @Route("/tunkalRestricted/api/posts", name="give_posts", methods={"GET"})
      */
     public function givePosts(Request $request, PostsRepository $postsRepository): JsonResponse
     {

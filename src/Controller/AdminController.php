@@ -29,7 +29,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/tunkalRestricted", name="admin")
      */
     public function index(): Response
     {

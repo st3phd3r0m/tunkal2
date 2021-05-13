@@ -15,8 +15,10 @@
 
             <div class="w-50 mx-auto mb-5">
                 <header>
-                    {# <a href="{{ path('home') }}" title="Accueil">Retour vers site</a> #}
-                    <h1 class="text-center" >Connection administration du site</h1>
+                    <a href="{{ path('home') }}" title="Retour vers site">
+                    {{ include('_bannerAdmin.html.twig') }}
+                    </a>
+                    <h1 class="text-center h3 mb-3 font-weight-normal" >Connection administration du site</h1>
                 </header>
 
                 <main>
@@ -31,7 +33,7 @@
                             </div>
                         {% endif %}
 
-                        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                        <h2 class="h3 mb-3 font-weight-normal text-center">Please sign in</h2>
                         <label for="inputEmail">Email</label>
                         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
                         <label for="inputPassword">Password</label>
