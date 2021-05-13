@@ -21,6 +21,7 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('postForm', './assets/postForm.js')
+    .addEntry('categoryForm', './assets/categoryForm.js')
     .addEntry('app', './assets/app.js')
 
     .enableVueLoader()
