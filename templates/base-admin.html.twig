@@ -240,6 +240,13 @@
                 <!-- Main content -->
                 <div class="content">
                     <div class="container-fluid">
+                    	{% for message in app.flashes('success') %}
+                            <div class="alert alert-success" role="alert">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for message in app.flashes('fail') %}
+                            <div class="alert alert-warning" role="alert">{{ message }}</div>
+                        {% endfor %}
                         {% block body %}{% endblock %}
                     </div>
 	            </div>

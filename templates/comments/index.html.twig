@@ -6,14 +6,6 @@
 {% block body %}
 	<div id="message-api" class="alert d-none" role="alert"></div>
 
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success" role="alert">{{ message }}</div>
-	{% endfor %}
-
-	{% for message in app.flashes('fail') %}
-		<div class="alert alert-warning" role="alert">{{ message }}</div>
-	{% endfor %}
-
 	{# Barre de recherche #}
 	{# <div class="search_filter mb-5"> 
 		<form class="search_bar" action="{{ path('comments_index') }}" method="get">
@@ -83,7 +75,7 @@
 					</td>
 					<td>
 						<a href="{{ path('comments_show', {'id': comment.id}) }}" class="btn btn-primary" ><i class="fas fa-glasses"></i></a>
-						<a href="{{ path('comments_edit', {'id': comment.id}) }}" class="btn btn-warning">Modérer</a>
+						<a href="{{ path('comments_edit', {'id': comment.id}) }}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
 						{{ include('comments/_delete_form.html.twig') }}
 					</td>
 

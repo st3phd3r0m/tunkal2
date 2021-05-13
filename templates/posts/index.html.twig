@@ -4,15 +4,6 @@
 {% block h1 %}Index des articles{% endblock %}
 {% block entity %}Articles{% endblock %}
 {% block body %}
-
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success" role="alert">{{ message }}</div>
-	{% endfor %}
-
-	{% for message in app.flashes('fail') %}
-		<div class="alert alert-warning" role="alert">{{ message }}</div>
-	{% endfor %}
-
 	<a href="{{ path('posts_new') }}" class="btn btn-success my-5">Create new</a>
 
 	<table class="table">
@@ -37,8 +28,8 @@
 				<td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 				<td>{{ post.category ? post.category.name : '' }}</td>
 				<td>
-					<a href="{{ path('posts_show', {'id': post.id}) }}">show</a>
-					<a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+					<a href="{{ path('posts_show', {'id': post.id}) }}" class="btn btn-primary" ><i class="fas fa-glasses"></i></a>
+					<a href="{{ path('posts_edit', {'id': post.id}) }}" class="btn btn-warning" ><i class="fas fa-edit"></i></a>
 					{{ include('posts/_delete_form.html.twig') }}
 				</td>
 			</tr>

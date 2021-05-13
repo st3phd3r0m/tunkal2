@@ -4,14 +4,6 @@
 {% block h1 %}Index des liens{% endblock %}
 {% block entity %}Liens{% endblock %}
 {% block body %}
-	{% for message in app.flashes('success') %}
-		<div class="alert alert-success" role="alert">{{ message }}</div>
-	{% endfor %}
-
-	{% for message in app.flashes('fail') %}
-		<div class="alert alert-warning" role="alert">{{ message }}</div>
-	{% endfor %}
-
 	{# Barre de recherche #}
 	<div class="search_filter"> 
 		<form class="search_bar" action="{{ path('links_index') }}" method="get">
@@ -88,7 +80,6 @@
 	<div>
 		{{ knp_pagination_render(links) }}
 	</div>
-
 
 	<a href="{{ path('links_new') }}" class="btn btn-success my-5" >Créer nouveau lien</a>
 {% endblock %}
