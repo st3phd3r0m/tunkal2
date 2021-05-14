@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('postForm', './assets/postForm.js')
     .addEntry('categoryForm', './assets/categoryForm.js')
+    .addEntry('commentsTable', './assets/commentsTable.js')
     .addEntry('app', './assets/app.js')
 
     .enableVueLoader()

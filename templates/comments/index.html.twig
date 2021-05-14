@@ -4,7 +4,9 @@
 {% block h1 %}Index des commentaires{% endblock %}
 {% block entity %}Commentaires{% endblock %}
 {% block body %}
-	<div id="message-api" class="alert d-none" role="alert"></div>
+<div id="commentsTable">
+	{# <div id="message-api" class="alert d-none" role="alert"></div> #}
+	<message-api :message="messageApi" :success="successApi" :fail="failApi"></message-api>
 
 	{# Barre de recherche #}
 	{# <div class="search_filter mb-5"> 
@@ -53,9 +55,8 @@
 			{% for comment in comments %}
 				<tr>
 					<td>
-						<input type="checkbox" id={{ "comment_"~comment.id }} name={{ "delete_comment_"~comment.id }} data-commentid={{ comment.id }}>
-						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-					</td>							
+						<input type="checkbox" id={{ "comment_"~comment.id }} name={{ "delete_comment_"~comment.id }} data-commentid={{ comment.id }} data-_token={{ csrf_token('delete' ~ comment.id) }}  v-on:click="onStoreCommentsToDelete">
+					</td>
 					<td>{{ comment.pseudo }}</td>
 					<td class="d-none d-lg-table-cell">
 						<a href="{{ path('comments_show', {'id': comment.id}) }}" >
@@ -64,7 +65,7 @@
 					</td>
 					<td class="d-none d-sm-table-cell">
 						{% if comment.post != null %}
-							<a title="Voir la article associée" href="{{ path('posts_show', {id:comment.post.id}) }}">{{ comment.post.title }}</a>
+							<a title="Voir l'article associé" href="{{ path('posts_show', {id:comment.post.id}) }}">{{ comment.post.title }}</a>
 						{% else %}
 							Commentaire associé à aucun article
 						{% endif %}
@@ -93,9 +94,10 @@
 	<div>
 		{{ knp_pagination_render(comments) }}
 	</div>
+</div>
 {% endblock %}
 
 {% block javascripts %}
-	{# {{ encore_entry_script_tags('adminDeleteComments') }} #}
+	{{ encore_entry_script_tags('commentsTable') }}
 {% endblock %}
 
