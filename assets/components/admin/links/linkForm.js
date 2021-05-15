@@ -9,7 +9,12 @@ new Vue({
   },
   data: {
     type: '',
-    selectFieldValue:''
+    selectFieldValue:'',
+    updatedFile: "",
+    updated: false,
+  },
+  mounted() {
+    this.selectFieldValue = this.$el.dataset.linkurl;
   },
   methods: {
     onGetLinkType: function (event) {
@@ -17,6 +22,14 @@ new Vue({
     },
     onClickChild (value) {
       this.selectFieldValue = value;
-    }
+    },
+    updateFile: function(event) {
+      let reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (e) => {
+        this.updatedFile = e.target.result;
+        this.updated = true;
+      };
+    },
   },
 })

@@ -36,6 +36,34 @@ class CommentsRepository extends ServiceEntityRepository
         return (int) ceil($result / $limit);
     }
 
+    /**
+     * Undocumented function.
+     */
+    public function getPage(int $page, string $post_slug, int $limit = 5): object
+    {
+        $offset = $limit * ($page - 1);
+        $dql = 'SELECT c.id, c.pseudo, c.content, c.created_at FROM comments as c'
+            .' INNER JOIN posts ON c.post_id = posts.id'
+            .' WHERE posts.slug = ? AND c.is_moderated = ?'
+            .' ORDER BY created_at DESC'
+            .' LIMIT ?, ?';
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->executeQuery($dql, [$post_slug, true, $offset, $limit], [ParameterType::STRING, ParameterType::BOOLEAN, ParameterType::INTEGER, ParameterType::INTEGER]);
+        $result = $stmt->fetchAllAssociative();
+        $conn->close();
+
+        return (object) [
+            'data' => $result,
+            '_embedded' => (object) [
+                'post' => $post_slug,
+                'page' => $page,
+                'limit' => $limit,
+                'offset' => $page * $limit,
+                'delivered_at' => (new \DateTime('now', new \DateTimeZone('Europe/Paris')))->format('d/m/Y H:i:s'),
+            ],
+        ];
+    }
+
     // /**
     //  * @return Comments[] Returns an array of Comments objects
     //  */

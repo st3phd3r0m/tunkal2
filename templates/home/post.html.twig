@@ -46,26 +46,12 @@
                 <span class="next" data-plus="1">&#10095;</span>            
             {% endif %}
         </div> 
-
-
-        {# <p class="keywords">
-            {% for keyword in post.keywords %}
-                #<strong>{{ keyword }}</strong>
-            {% endfor %}
-        </p> #}
     </article>
 
-    <section class="comments" data-slug="{{ post.slug }}">
+    <section id="comments" class="comments" data-slug="{{ post.slug }}" data-numberofpages="{{ numbOfCommentsPages }}">
         <h2>Commentaires</h2>
-        {% if numbOfCommentsPages == 0 %}
-            <p>0 commentaire pour cet article.</p>
-        {% else %}
-            <div class="comment">
-                <p><span class="pseudo"></span>, le <span class="sent_at"></span> : </p>
-                <p class="comment_content"></p>
-            </div>
-            <p id="seeComments" data-numberofpages="{{ numbOfCommentsPages }}">Voir les commentaires <i class="fas fa-caret-down"></i></p>
-        {% endif %}
+        <comment-list :comments="data"></comment-list>
+        <comment-button :page="page" :numberofpages="numberofpages" @clicked="onCallComments" @clickedzero="zeroPage"></comment-button>
     </section>
 
     {# Formulaire commentaire #}
@@ -76,5 +62,5 @@
     {# Fin Formulaire commentaire #}
 {% endblock %}
 {% block javascripts %}
-    {# {{ encore_entry_script_tags('appComments') }} #}
+    {{ encore_entry_script_tags('commentList') }}
 {% endblock %}

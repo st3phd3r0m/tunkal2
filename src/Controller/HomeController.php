@@ -5,20 +5,16 @@ namespace App\Controller;
 use App\Entity\Categories;
 use App\Entity\Comments;
 use App\Entity\Posts;
-use App\Entity\Shows;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
 use App\Repository\LinksRepository;
 use App\Repository\PostsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-
 
 /**
  * @Route("/")
@@ -95,8 +91,6 @@ class HomeController extends AbstractController
             $this->addFlash('success', 'Commentaire enregistré');
 
             $_route = $request->get('_route');
-
-
             return $this->redirectToRoute($_route, [
                 'categorySlug'=> $categorySlug,
                 'postSlug' => $post->getSlug(),

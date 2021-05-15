@@ -2,7 +2,7 @@
 {% set apiUrls = []  %}
 {% set apiUrls = apiUrls|merge( {'post': absolute_url(path('give_posts')) })  %}
 {% set apiUrls = apiUrls|merge( {'category': absolute_url(path('give_categories')) })  %}
-<div id="linkForm">
+<div id="linkForm" data-linkurl="{{ link.url }}">
 	{{ form_start(form) }}
 
 	{{ form_row(form.position) }}
@@ -16,7 +16,15 @@
 	{{ form_row(form.title) }}
 	{{ form_row(form.image_alt) }}
 	{{ form_row(form.content) }}
-	{{ form_row(form.imageFile) }}
+	<div class="row">
+		<div class="col-6">
+			{{ form_row(form.imageFile, {'attr': { 'v-on:change': 'updateFile'}}) }}
+		</div>
+		<div class="col-6">
+			<img class="w-50" v-if="updated" :src="updatedFile" alt="">
+		</div>	
+	</div>
+	
 	{{ form_row(form.uploaded_at) }}
 
 	<button class="btn btn-success my-5">{{ button_label|default('Valider') }}</button>

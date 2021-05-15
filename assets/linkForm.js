@@ -1,1 +1,1 @@
-import './components/admin/links/whichLink.js'
+import './components/admin/links/linkForm.js'
