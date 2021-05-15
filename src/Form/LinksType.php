@@ -77,6 +77,7 @@ class LinksType extends AbstractType
                 'choices' => [
                     'Lien sortant' => 'external',
                     'Catégorie' => 'category',
+                    'Article' => 'post',
                     'Bannière (haut de page)'=>'banner',
                     'x-icon (head)'=>'xicon'
                 ],

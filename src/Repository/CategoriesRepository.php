@@ -19,6 +19,25 @@ class CategoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Categories::class);
     }
 
+    /**
+     * Undocumented function.
+     */
+    public function getCategories(): object
+    {
+        $dql = 'SELECT c.id, c.name, c.slug FROM categories as c';
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->executeQuery($dql);
+        $result = $stmt->fetchAllAssociative();
+        $conn->close();
+
+        return (object) [
+            'data' => $result,
+            '_embedded' => (object) [
+                'delivered_at' => (new \DateTime('now', new \DateTimeZone('Europe/Paris')))->format('d/m/Y H:i:s'),
+            ],
+        ];
+    }
+
     // /**
     //  * @return Categories[] Returns an array of Categories objects
     //  */

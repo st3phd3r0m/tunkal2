@@ -20,6 +20,26 @@ class PostsRepository extends ServiceEntityRepository
         parent::__construct($registry, Posts::class);
     }
 
+    /**
+     * Undocumented function.
+     */
+    public function getPosts(): object
+    {
+        $dql = 'SELECT p.id, p.title, p.slug FROM posts as p'
+            .' WHERE p.category_id IS NULL';
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->executeQuery($dql);
+        $result = $stmt->fetchAllAssociative();
+        $conn->close();
+
+        return (object) [
+            'data' => $result,
+            '_embedded' => (object) [
+                'delivered_at' => (new \DateTime('now', new \DateTimeZone('Europe/Paris')))->format('d/m/Y H:i:s'),
+            ],
+        ];
+    }
+
     // /**
     //  * @return Posts[] Returns an array of Posts objects
     //  */

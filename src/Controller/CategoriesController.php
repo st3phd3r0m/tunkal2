@@ -9,13 +9,11 @@ use App\Repository\CategoriesRepository;
 use App\Repository\LinksRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/tunkalRestricted/categories")
- */
 class CategoriesController extends AbstractController
 {
 
@@ -27,7 +25,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/", name="categories_index", methods={"GET"})
+     * @Route("/tunkalRestricted/categories/", name="categories_index", methods={"GET"})
      */
     public function index(CategoriesRepository $categoriesRepository): Response
     {
@@ -37,7 +35,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="categories_new", methods={"GET","POST"})
+     * @Route("/tunkalRestricted/categories/new", name="categories_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -63,7 +61,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="categories_show", methods={"GET"})
+     * @Route("/tunkalRestricted/categories/{id}", name="categories_show", methods={"GET"})
      */
     public function show(Categories $category): Response
     {
@@ -73,7 +71,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="categories_edit", methods={"GET","POST"})
+     * @Route("/tunkalRestricted/categories/{id}/edit", name="categories_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Categories $category): Response
     {
@@ -94,7 +92,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="categories_delete", methods={"DELETE"})
+     * @Route("/tunkalRestricted/categories/{id}", name="categories_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Categories $category): Response
     {
@@ -142,5 +140,23 @@ class CategoriesController extends AbstractController
             $entityManager->remove($link);
             $entityManager->flush();
         }
+    }
+
+    /**
+     * @Route("/tunkalRestricted/api/categories", name="give_categories", methods={"GET"})
+     */
+    public function givePosts(Request $request, CategoriesRepository $categoriesRepository): JsonResponse
+    {
+        if ($request->isXmlHttpRequest()) {
+            $token = $request->headers->get('authorization');
+            if (!$this->isCsrfTokenValid('links', $token)) {
+                return new JsonResponse('Unauthorized', 401);
+            }
+            $categories = $categoriesRepository->getCategories();
+
+            return new JsonResponse($categories, 200);
+        }
+
+        return new JsonResponse('Méthode non-autorisée', 405);
     }
 }

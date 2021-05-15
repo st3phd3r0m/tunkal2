@@ -125,7 +125,6 @@ class PostsController extends AbstractController
         return $imagesNames;
     }
 
-
     /**
      * Undocumented function
      *
@@ -214,8 +213,7 @@ class PostsController extends AbstractController
             if (!$this->isCsrfTokenValid('links', $token)) {
                 return new JsonResponse('Unauthorized', 401);
             }
-            $isPastConcert = (bool) $request->query->get('isPastConcert');
-            $posts = $postsRepository->getPosts($isPastConcert);
+            $posts = $postsRepository->getPosts();
 
             return new JsonResponse($posts, 200);
         }
