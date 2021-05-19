@@ -49,6 +49,9 @@
         </span>
 
 		<main>
+		    {% for message in app.flashes('commentSuccess') %}
+        		<div class="success">{{ message }}</div>
+    		{% endfor %}
 			{% block body %}{% endblock %}		
 		</main>
 		<footer>

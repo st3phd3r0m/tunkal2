@@ -1,0 +1,5 @@
+<section id="commentsList" class="comments" data-slug="{{ post.slug }}" data-numberofpages="{{ numbOfCommentsPages }}">
+    <h2>Commentaires</h2>
+    <comment-list :comments="data" :showlist="showlist"></comment-list>
+    <comment-button :page="page" :numberofpages="numberofpages" :showlist="showlist" @clicked="onCallComments" @clickedzero="zeroPage"></comment-button>
+</section>

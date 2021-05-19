@@ -1,0 +1,19 @@
+{# Illustration article #}
+    {% for image in post.images %}
+        <img class="hover-shadow" data-currentslide="{{ loop.index0 }}"
+        src="{{ asset('images/' ~ image.name )|imagine_filter('min150') }}" alt="{{ post.metaTitle ?? '' }}" data-image-path="{{ asset('images/' ~ image.name ) }}" >
+    {% endfor %}
+{# Fin Illustration article #}
+
+<!-- The Modal/Lightbox -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="mySlides">
+        <img src="{{ post.images[0].name ? asset('images/' ~ post.images[0].name )|imagine_filter('min150') : '' }}" alt="{{ post.metaTitle ?? '' }}">
+    </div>
+    <!-- Next/previous controls -->
+    {% if post.images|length > 1 %}
+        <span class="prev" data-plus="-1">&#10094;</span>
+        <span class="next" data-plus="1">&#10095;</span>            
+    {% endif %}
+</div> 

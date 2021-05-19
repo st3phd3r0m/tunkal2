@@ -44,7 +44,6 @@ new Vue({
                 value => {
                     let object = JSON.parse(value);
                     this.data = this.data.concat(object.data);
-                    console.log(this.data);
                 }
             );
         }

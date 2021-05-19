@@ -16,47 +16,20 @@
 {% block title %}{{ post.metaTitle ?? '' }}{% endblock %}
 
 {% block body %}
-
-    {% for message in app.flashes('success') %}
-        <div class="success">{{ message }}</div>
-    {% endfor %}
-
     <article class="post">
         <h2>{{ post.title ?? '' }}</h2>
         <p class="createdAt">Le <time datetime="{{ post.createdAt|date('Y-m-d') }}">{{ post.createdAt|date('d-m-Y') }}</time></p>
         <div class="postcontent">{{ post.content|raw }}</div>
 
-        {# Illustration article #}
-            {% for image in post.images %}
-                <img class="hover-shadow" data-currentslide="{{ loop.index0 }}"
-                src="{{ asset('images/' ~ image.name )|imagine_filter('min150') }}" alt="{{ post.metaTitle ?? '' }}" data-image-path="{{ asset('images/' ~ image.name ) }}" >
-            {% endfor %}
-        {# Fin Illustration article #}
-
-        <!-- The Modal/Lightbox -->
-        <div id="myModal" class="modal">
-            <span class="close">&times;</span>
-            <div class="mySlides">
-                <img src="{{ post.images[0].name ? asset('images/' ~ post.images[0].name )|imagine_filter('min150') : '' }}" alt="{{ post.metaTitle ?? '' }}">
-            </div>
-            <!-- Next/previous controls -->
-            {% if post.images|length > 1 %}
-                <span class="prev" data-plus="-1">&#10094;</span>
-                <span class="next" data-plus="1">&#10095;</span>            
-            {% endif %}
-        </div> 
+        {{ include('home/_diaporama.html.twig') }}
     </article>
 
-    <section id="commentsList" class="comments" data-slug="{{ post.slug }}" data-numberofpages="{{ numbOfCommentsPages }}">
-        <h2>Commentaires</h2>
-        <comment-list :comments="data" :showlist="showlist"></comment-list>
-        <comment-button :page="page" :numberofpages="numberofpages" :showlist="showlist" @clicked="onCallComments" @clickedzero="zeroPage"></comment-button>
-    </section>
+    {{ include('home/_commentsList.html.twig') }}
 
     {# Formulaire commentaire #}
     <div>
         <h2>Écrire un commentaire</h2>
-        {{ include('home/_commentform.html.twig', {'button_label': 'Envoyer'}) }}
+        {{ include('home/_commentform.html.twig') }}
     </div>
     {# Fin Formulaire commentaire #}
 {% endblock %}

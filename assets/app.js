@@ -12,3 +12,4 @@ import './styles/styles.scss';
 import './home/scroll.js';
 import './home/menu.js';
 import './home/banner.js';
+import './home/modalsAndSlideShows.js';

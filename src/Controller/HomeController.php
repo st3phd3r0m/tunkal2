@@ -88,7 +88,7 @@ class HomeController extends AbstractController
             $entityManager->flush();
 
             //Envoi d'un message utilisateur
-            $this->addFlash('success', 'Commentaire enregistré');
+            $this->addFlash('commentSuccess', 'Commentaire enregistré');
 
             $_route = $request->get('_route');
             return $this->redirectToRoute($_route, [
