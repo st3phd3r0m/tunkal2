@@ -7,7 +7,6 @@ use App\Entity\Links;
 use App\Form\CategoriesType;
 use App\Repository\CategoriesRepository;
 use App\Repository\LinksRepository;
-use Doctrine\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,16 +56,6 @@ class CategoriesController extends AbstractController
         return $this->render('categories/new.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin/categories/{id}", name="categories_show", methods={"GET"})
-     */
-    public function show(Categories $category): Response
-    {
-        return $this->render('categories/show.html.twig', [
-            'category' => $category,
         ]);
     }
 

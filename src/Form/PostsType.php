@@ -96,7 +96,8 @@ class PostsType extends AbstractType
             ->add('category', EntityType::class, [
                 'label' => 'Catégorie de l\'article',
                 'class'=> Categories::class,
-                'choice_label'=>'name'
+                'choice_label'=>'name',
+                'required' => false
             ])
             ->add('concert_location', TextType::class, [
                 'required' => false,

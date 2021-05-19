@@ -5,48 +5,51 @@
 {% block entity %}Liens{% endblock %}
 {% block body %}
 	{# Barre de recherche #}
-	<div class="search_filter"> 
-		<form class="search_bar" action="{{ path('links_index') }}" method="get">
-			<div class="row">
-				<select class="col-3 p-2" name="positionFilter" id="positionFilter">
-					<option value="">Rechercher par position</option>     
+	<div class='search_filter'> 
+		<form class='search_bar' action='{{ path('links_index') }}' method='get'>
+			<div class='row'>
+				<select class='col-3 p-2' name='positionFilter' id='positionFilter'>
+					<option value=''>Rechercher par position</option>     
+					<option value='socnet'>Réseaux sociaux (haut de page)</option>
 					<option value='footer'>Bas de page (footer)</option>
 					<option value='header'>Haut de page (header)</option>
 					<option value='nav'>Barre de navigation (haut de page)</option>
 					<option value='media'>Zone des médias audio/vidéo</option>
-					<option value='copyright'>Copyright</option>               
+					<option value='copyright'>Copyright</option>     
+					<option value='banner'>Bannière (haut de page)</option>
+					<option value='xicon'>x-icon (head)</option>          
 				</select>
-				<select class="col-3 p-2" name="isActiveFilter" id="isActiveFilter">
-					<option value="">Liens actifs ?</option>
+				<select class='col-3 p-2' name='isActiveFilter' id='isActiveFilter'>
+					<option value=''>Liens actifs ?</option>
 					<option value=1>Oui</option>
 					<option value=0>Non</option>
 				</select>
-				<button type="submit" class="btn btn-primary" class=" button violetBackground">OK</button>		
-				<a class="btn btn-secondary mx-1" href="{{ path('links_index') }}" title="Retour à la liste des produits">Reset</a>	
+				<button type='submit' class='btn btn-primary' class=' button violetBackground'>OK</button>		
+				<a class='btn btn-secondary mx-1' href='{{ path('links_index') }}' title='Retour à la liste des produits'>Reset</a>	
 			</div>
 		</form>
 	</div>
 	{# Fin barre de recherche #}
 
 
-	<a href="{{ path('links_new') }}" class="btn btn-success my-5" >Créer nouveau lien</a>
+	<a href='{{ path('links_new') }}' class='btn btn-success my-5' >Créer nouveau lien</a>
 
-	<table class="table">
+	<table class='table'>
 		<thead>
 			<tr>
 				<th>
 					{{ knp_pagination_sortable(links, 'Titre', 'title') }}    
 				</th>
-				<th class="d-none d-sm-table-cell">
+				<th class='d-none d-sm-table-cell'>
 					{{ knp_pagination_sortable(links, 'Url', 'url') }}       
 				</th>
-				<th class="d-none d-md-table-cell">
+				<th class='d-none d-md-table-cell'>
 					{{ knp_pagination_sortable(links, 'Position', 'position') }}
 				</th>
-				<th class="d-none d-md-table-cell">
+				<th class='d-none d-md-table-cell'>
 					{{ knp_pagination_sortable(links, 'Ordre d\'apparition', 'positionOrder') }}
 				</th>
-				<th class="d-none d-md-table-cell">
+				<th class='d-none d-md-table-cell'>
 					{{ knp_pagination_sortable(links, 'Lien actif ?', 'isActive') }}
 				</th>
 				<th>actions</th>
@@ -56,19 +59,19 @@
 		{% for link in links %}
 			<tr>
 				<td>{{ link.title }}</td>
-				<td class="d-none d-sm-table-cell">{{ link.url }}</td>
-				<td class="d-none d-md-table-cell">{{ link.position }}</td>
-				<td class="d-none d-md-table-cell">{{ link.positionOrder }}</td>
-				<td class="d-none d-md-table-cell">{{ link.isActive ? 'Oui' : 'Non' }}</td>
+				<td class='d-none d-sm-table-cell'>{{ link.url }}</td>
+				<td class='d-none d-md-table-cell'>{{ link.position }}</td>
+				<td class='d-none d-md-table-cell'>{{ link.positionOrder }}</td>
+				<td class='d-none d-md-table-cell'>{{ link.isActive ? 'Oui' : 'Non' }}</td>
 				<td>
-					<a href="{{ path('links_show', {'id': link.id}) }}" class="btn btn-primary" ><i class="fas fa-glasses"></i></a>
-					<a href="{{ path('links_edit', {'id': link.id}) }}" class="btn btn-warning" ><i class="fas fa-edit"></i></a>
+					<a href='{{ path('links_show', {'id': link.id}) }}' class='btn btn-primary' ><i class='fas fa-glasses'></i></a>
+					<a href='{{ path('links_edit', {'id': link.id}) }}' class='btn btn-warning' ><i class='fas fa-edit'></i></a>
 					{{ include('links/_delete_form.html.twig') }}
 				</td>
 			</tr>
 		{% else %}
 			<tr>
-				<td colspan="4">Aucun lien enregistré</td>
+				<td colspan='4'>Aucun lien enregistré</td>
 			</tr>
 		{% endfor %}
 		</tbody>
@@ -81,5 +84,5 @@
 		{{ knp_pagination_render(links) }}
 	</div>
 
-	<a href="{{ path('links_new') }}" class="btn btn-success my-5" >Créer nouveau lien</a>
+	<a href='{{ path('links_new') }}' class='btn btn-success my-5' >Créer nouveau lien</a>
 {% endblock %}

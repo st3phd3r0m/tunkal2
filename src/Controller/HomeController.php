@@ -7,7 +7,6 @@ use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
-use App\Repository\LinksRepository;
 use App\Repository\PostsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,17 +32,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function index(LinksRepository $linksRepository): Response
+    public function index(): Response
     {
         $post = $this->newFirmPage('accueil');
 
-        // $copyrightLink = $linksRepository->findBy(['position' => 'copyright'])[0];
-        $mediaLinks = $linksRepository->findBy(['position' => 'media']);
-
         return $this->render('home/index.html.twig', [
             'post' => $post,
-            'mediaLinks' => $mediaLinks,
-            'copyrightLink' => '',
         ]);
     }
 

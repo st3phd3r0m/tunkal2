@@ -105,7 +105,7 @@ class LinksType extends AbstractType
                     new Image([
                         'maxSize' => '2M',
                         'maxSizeMessage' => 'Votre image dépasse les 2Mo',
-                        'mimeTypes' => ['image/webp'],
+                        'mimeTypes' => ['image/webp', 'image/vnd.microsoft.icon'],
                         'mimeTypesMessage' => 'Votre image doit être de type webp',
                     ]),
                 ],

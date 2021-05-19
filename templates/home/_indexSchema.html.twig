@@ -1,0 +1,66 @@
+<script type='application/ld+json'>
+{
+    '@context': 'https://schema.org',
+    '@type': 'MusicGroup',
+    'name': 'Tunkal',
+    'description': '{{ post.metaDescription ?? '' }}',
+{% if banner is defined and banner != false %}
+    'logo': {
+        '@type': 'ImageObject',
+        'url': '{{ currentUrl|slice(0, -1) ~ asset('images/'~ banner.image) }}'
+    },
+{% endif %}
+{% if post.images|length > 0 %}
+    'image': {
+        '@type': 'ImageObject',
+        'url': '{{ currentUrl|slice(0, -1) ~ asset('images/' ~ post.images[0].name ) }}'
+    },
+{% endif %}
+    'url': '{{ currentUrl }}',
+    'genre': [
+        'Metal',
+        'Death Metal',
+        'Thrash Metal'
+    ],
+    'sameAs': [
+    {% for link in links()|filter( link => link.position == 'header' ) %}
+        '{{ link.url }}'{{ loop.last ? '' : ',' }}
+    {% endfor %}
+    ],
+    'foundingLocation': {
+        '@type': 'Country',
+        'name': 'France'
+    },
+    'foundingDate': '2018',
+    'track': [
+    {% for link in links()|filter( link =>  link.position == 'media' ) %}
+    {
+        {% if link.uploadedAt == null %}
+        '@type': 'MusicRecording',
+        'audio': '{{ link.url }}',
+        'name': '{{ link.content }}',
+        'url': '{{ link.url }}'   
+        {% else %}
+        '@type': 'VideoObject',
+        'name': '{{ link.title }}',
+        'description': '{{ link.content }}',
+        'embedUrl': '{{ link.url }}',
+		'thumbnailUrl':'{{ asset('images/' ~ link.image )|imagine_filter('min300') }}',
+        'uploadDate':'{{ link.uploadedAt|date('c') }}'
+        {% endif %}
+    }{{ loop.last ? '' : ',' }}
+    {% endfor %}
+    ],
+    'member': [
+        {
+        '@type': 'OrganizationRole',
+        'member': {
+            '@type': 'Person',
+            'name': 'Tunkal'
+        },
+        'startDate': '2018',
+        'roleName': 'guitar'
+        }
+    ]
+}
+</script>
