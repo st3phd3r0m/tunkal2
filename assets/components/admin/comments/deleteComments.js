@@ -30,7 +30,7 @@ new Vue({
         let doneCount = 0;
         for (let comment of this.commentsToDelete) {
             fetch(
-                '/tunkalRestricted/api/comments/' + comment.id,
+                '/admin/api/comments/' + comment.id,
                 {
                     method: 'DELETE',
                     mode: 'same-origin',

@@ -1,9 +1,9 @@
 <template>
   <div>
     <p v-if="numberofpages==0">0 commentaire pour cet article.</p>
-    <p v-if="numberofpages>0 && page==0" v-on:click="onClickCommentButton">Voir les commentaires <i class="fas fa-caret-down"></i></p>
+    <p v-if="(numberofpages>0 && page==0) || !showlist" v-on:click="onClickCommentButton">Voir les commentaires <i class="fas fa-caret-down"></i></p>
     <p v-if="numberofpages>0 && page<numberofpages && page>0" v-on:click="onClickCommentButton">Voir les autres commentaires <i class="fas fa-caret-down"></i></p>
-    <p v-if="numberofpages>0 && page==numberofpages" v-on:click="onClickZero">Fermer les commentaires <i class="fas fa-caret-up"></i></p>    
+    <p v-if="(numberofpages>0 && page==numberofpages) && showlist" v-on:click="onClickZero">Fermer les commentaires <i class="fas fa-caret-up"></i></p>    
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
   props: {
     numberofpages: Number,
     page: Number,
+    showlist: Boolean
   },
   methods: {
     onClickCommentButton: function() {

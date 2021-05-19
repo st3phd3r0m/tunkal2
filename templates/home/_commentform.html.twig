@@ -1,0 +1,29 @@
+
+{% set pseudoConstrainsts = [] %}
+{% for item in form.pseudo.vars.errors.form.config.options.constraints %}
+    {% set pseudoConstrainsts = pseudoConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set contentConstrainsts = [] %}
+{% for item in form.content.vars.errors.form.config.options.constraints %}
+    {% set contentConstrainsts = contentConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set nosiarConstrainsts = [] %}
+{% for item in form.nosiar.vars.errors.form.config.options.constraints %}
+    {% set nosiarConstrainsts = nosiarConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{{ form_start(form, {'attr': { 'data-slug': post.slug }}) }}
+    <div id="comment_sent" :class="classCommentSent" v-show="messageapi != ''"> ${ messageapi }$ </div>
+    <div id="comments">
+        {{ form_label(form.pseudo) }}
+        <span class="errormessage"> ${ errormessages.commentsPseudo }$ </span>
+        {{ form_widget(form.pseudo, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': pseudoConstrainsts|json_encode }}) }}
+        {{ form_label(form.content) }}
+        <span class="errormessage"> ${ errormessages.commentsContent }$ </span>
+        {{ form_widget(form.content, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': contentConstrainsts|json_encode }}) }}
+        {{ form_widget(form.nosiar, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': nosiarConstrainsts|json_encode }}) }}    
+    </div>
+    <button class="btn" :disabled="disabled" v-on:click='onSendComment'>{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Length;
@@ -25,13 +27,6 @@ class PostsType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $firmSlugs = [
-            'accueil',
-            'news',
-            'previous-concerts',
-            'upcoming-concerts',
-        ];
-
         $builder
             ->add('title', TextType::class, [
                 'required' => true,
@@ -84,9 +79,9 @@ class PostsType extends AbstractType
             ])
             ->add('keywords', TextType::class, [
                 'required' => false,
-                'label' => 'Ajouter des mots-clés, délimités par des hashtags ("#"), afin de référencer votre produit : ',
+                'label' => 'Ajouter des mots-clés, délimités par des hashtags (";"), afin de référencer votre produit : ',
                 'mapped' => false,
-                'data' => (null != $builder->getData()->getKeywords()) ? implode('#', $builder->getData()->getKeywords()) : '',
+                'data' => (null != $builder->getData()->getKeywords()) ? implode(';', $builder->getData()->getKeywords()) : '',
             ])
             
             ->add('images', CollectionType::class, [

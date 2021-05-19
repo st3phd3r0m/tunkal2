@@ -25,7 +25,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/categories/", name="categories_index", methods={"GET"})
+     * @Route("/admin/categories/", name="categories_index", methods={"GET"})
      */
     public function index(CategoriesRepository $categoriesRepository): Response
     {
@@ -35,7 +35,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/categories/new", name="categories_new", methods={"GET","POST"})
+     * @Route("/admin/categories/new", name="categories_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -61,7 +61,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/categories/{id}", name="categories_show", methods={"GET"})
+     * @Route("/admin/categories/{id}", name="categories_show", methods={"GET"})
      */
     public function show(Categories $category): Response
     {
@@ -71,7 +71,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/categories/{id}/edit", name="categories_edit", methods={"GET","POST"})
+     * @Route("/admin/categories/{id}/edit", name="categories_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Categories $category): Response
     {
@@ -92,7 +92,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/categories/{id}", name="categories_delete", methods={"DELETE"})
+     * @Route("/admin/categories/{id}", name="categories_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Categories $category): Response
     {
@@ -143,7 +143,7 @@ class CategoriesController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/api/categories", name="give_categories", methods={"GET"})
+     * @Route("/admin/api/categories", name="give_categories", methods={"GET"})
      */
     public function givePosts(Request $request, CategoriesRepository $categoriesRepository): JsonResponse
     {

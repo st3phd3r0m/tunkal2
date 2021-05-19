@@ -3,7 +3,7 @@ import CommentList from './CommentList.vue';
 import CommentButton from './CommentButton.vue'
 
 new Vue({
-  el: '#comments',
+  el: '#commentsList',
   delimiters: ['${', '}$'],
   components: {
     CommentList,
@@ -13,7 +13,8 @@ new Vue({
     slug: '',
     numberofpages: null,
     page: 0,
-    data: []
+    data: [],
+    showlist: true
   },
   mounted() {
     this.slug = this.$el.dataset.slug;
@@ -21,8 +22,13 @@ new Vue({
   },
   methods: {
     onCallComments: function () {
-        this.page++;
-        if(this.page<= this.numberofpages){
+       
+        if(this.data.length>0 && !this.showlist){
+          this.showlist=true;
+        }
+        
+        if(this.page< this.numberofpages && this.showlist){
+            this.page++;
             fetch(
                 '/api/comments/post/' + this.slug + '?page=' + this.page,
                 {
@@ -37,14 +43,14 @@ new Vue({
             ).then(
                 value => {
                     let object = JSON.parse(value);
-                    this.data = object.data;
+                    this.data = this.data.concat(object.data);
+                    console.log(this.data);
                 }
             );
         }
     },
     zeroPage: function () {
-        this.page=0;
-        this.data=[];
+        this.showlist=false;
     }
   },
 })

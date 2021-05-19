@@ -24,7 +24,7 @@ Encore
     .addEntry('categoryForm', './assets/categoryForm.js')
     .addEntry('commentsTable', './assets/commentsTable.js')
     .addEntry('linkForm', './assets/linkForm.js')
-    .addEntry('commentList', './assets/commentList.js')
+    .addEntry('comments', './assets/comments.js')
     .addEntry('app', './assets/app.js')
 
     .enableVueLoader()

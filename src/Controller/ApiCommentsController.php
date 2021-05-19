@@ -53,9 +53,6 @@ class ApiCommentsController extends AbstractController
                 return new JsonResponse('Unauthorized', 401);
             }
             $data = (array) json_decode($request->getContent());
-            foreach ($data as $key => $value) {
-                $data[$key] = htmlspecialchars($value);
-            }
             $comment = new Comments();
             $form = $this->createForm(CommentsType::class, $comment);
             $form->submit($data);
@@ -77,7 +74,7 @@ class ApiCommentsController extends AbstractController
     }
 
     /**
-     * @Route("/tunkalRestricted/api/comments/{id}", name="comments_delete_api", methods={"DELETE"})
+     * @Route("/admin/api/comments/{id}", name="comments_delete_api", methods={"DELETE"})
      */
     public function deleteAction(int $id, Request $request): JsonResponse
     {

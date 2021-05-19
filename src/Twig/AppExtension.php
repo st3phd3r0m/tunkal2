@@ -2,34 +2,25 @@
 
 namespace App\Twig;
 
-use App\Entity\Links;
-use App\Repository\LinksRepository;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
 class AppExtension extends AbstractExtension
 {
-    private LinksRepository $linksRepository;
-
     public function getFunctions()
     {
         return [
-            new TwigFunction('links', [$this, 'findLinks']),
+            'class' => new TwigFunction('class', [$this, 'getClass']),
+            'lcfirst' => new TwigFunction('lcfirst', [$this, 'lowerCaseFirstChar']),
         ];
     }
 
-    public function __construct(LinksRepository $linksRepository)
+    public function getClass($object)
     {
-        $this->linksRepository = $linksRepository;
+        return (new \ReflectionClass($object))->getShortName();
     }
 
-    /**
-     * Undocumented function.
-     *
-     * @return Links[]
-     */
-    public function findLinks()
-    {
-        return $this->linksRepository->findActiveLinks();
+    public function lowerCaseFirstChar(string $str){
+        return lcfirst($str);
     }
 }

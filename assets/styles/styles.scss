@@ -207,10 +207,6 @@ body {
             color: rgb(0, 144, 72);
         }
 
-        #comment_sent{
-            display: none;
-        }
-
         margin: auto;
         margin-top: 0;
         margin-bottom: 0;
@@ -368,6 +364,13 @@ body {
 
             input, textarea{
                 font-family: Arial, Helvetica, sans-serif;
+            }
+
+            >span.errormessage{
+                color: rgb(255, 122, 122);
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 1rem;
+                line-height: 0;
             }
         }
 

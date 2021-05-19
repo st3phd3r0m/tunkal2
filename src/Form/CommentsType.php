@@ -4,10 +4,13 @@ namespace App\Form;
 
 use App\Entity\Comments;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Blank;
 use Symfony\Component\Validator\Constraints\Length;
@@ -33,7 +36,7 @@ class CommentsType extends AbstractType
                 'minlength' => 4,
                 'maxlength' => 20,
                 'pattern' => '[A-Za-z]{4,20}.{0,}',
-                'title' => 'Votre pseudo doit comporter entre 4 et 20 carctères et commencer par 4 lettres minimum',
+                'title' => 'Votre pseudo doit comporter entre 4 et 20 caractères et commencer par 4 lettres minimum',
             ],
             'constraints' => [
                 new NotBlank([
@@ -61,7 +64,7 @@ class CommentsType extends AbstractType
                 'minlength' => 2,
                 'maxlength' => 240,
                 'pattern' => '[A-Za-z]{2,240}.{0,}',
-                'title' => 'Votre commentaire doit comporter entre 2 et 240 carctères et commencer par 2 lettres minimum',
+                'title' => 'Votre commentaire doit comporter entre 2 et 240 caractères et commencer par 2 lettres minimum',
             ],
             'constraints' => [
                 new NotBlank([
@@ -92,6 +95,17 @@ class CommentsType extends AbstractType
             ],
         ])
         ;
+
+        $builder->addEventListener(
+            FormEvents::PRE_SUBMIT,
+            function(FormEvent $event) {
+                $data = $event->getData();
+                foreach ($data as $key => $value) {
+                    $data[$key] = htmlspecialchars($value);
+                }
+                $event->setData($data);
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

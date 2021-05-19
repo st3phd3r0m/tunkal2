@@ -20,7 +20,6 @@
     {% for message in app.flashes('success') %}
         <div class="success">{{ message }}</div>
     {% endfor %}
-    <div id="comment_sent"></div>
 
     <article class="post">
         <h2>{{ post.title ?? '' }}</h2>
@@ -48,19 +47,19 @@
         </div> 
     </article>
 
-    <section id="comments" class="comments" data-slug="{{ post.slug }}" data-numberofpages="{{ numbOfCommentsPages }}">
+    <section id="commentsList" class="comments" data-slug="{{ post.slug }}" data-numberofpages="{{ numbOfCommentsPages }}">
         <h2>Commentaires</h2>
-        <comment-list :comments="data"></comment-list>
-        <comment-button :page="page" :numberofpages="numberofpages" @clicked="onCallComments" @clickedzero="zeroPage"></comment-button>
+        <comment-list :comments="data" :showlist="showlist"></comment-list>
+        <comment-button :page="page" :numberofpages="numberofpages" :showlist="showlist" @clicked="onCallComments" @clickedzero="zeroPage"></comment-button>
     </section>
 
     {# Formulaire commentaire #}
     <div>
         <h2>Écrire un commentaire</h2>
-        {{ include('comments/_form.html.twig', {'button_label': 'Envoyer'}) }}
+        {{ include('home/_commentform.html.twig', {'button_label': 'Envoyer'}) }}
     </div>
     {# Fin Formulaire commentaire #}
 {% endblock %}
 {% block javascripts %}
-    {{ encore_entry_script_tags('commentList') }}
+    {{ encore_entry_script_tags('comments') }}
 {% endblock %}
