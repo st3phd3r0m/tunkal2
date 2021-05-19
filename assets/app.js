@@ -8,3 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/normalize.css';
 import './styles/styles.scss';
+
+import './home/scroll.js';
+import './home/menu.js';
+import './home/banner.js';
