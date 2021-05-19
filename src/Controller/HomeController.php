@@ -67,10 +67,11 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/cat/{categorySlug}/post/{postSlug}", name="post", methods={"GET", "POST"})
+     * @Route("/post/{postSlug}", name="post", methods={"GET", "POST"})
+     * @Route("/cat/{categorySlug}/post/{postSlug}", name="catpost", methods={"GET", "POST"})
      * @ParamConverter("post", class="App\Entity\Posts", options={"mapping": {"postSlug":"slug"}}))
      */
-    public function showPost(string $categorySlug, Posts $post, Request $request): Response
+    public function showPost(string $categorySlug = null, Posts $post, Request $request): Response
     {
         // Instanciation de Comments, création formulaire commentaire
         $comment = new Comments();

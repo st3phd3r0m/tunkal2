@@ -19,6 +19,7 @@ new Vue({
   methods: {
     onGetLinkType: function (event) {
         this.type = event.target.value;
+        this.selectFieldValue ='';
     },
     onClickChild (value) {
       this.selectFieldValue = value;

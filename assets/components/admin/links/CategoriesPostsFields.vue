@@ -65,9 +65,7 @@ export default {
         },
         onClickedEvent: function(event){
             let value = event.target.value;
-            if(this.fieldtype == 'category'){
-                value = '/cat/'+value;
-            }
+            value = '/'+this.fieldtype+'/'+value;
             this.$emit('clicked', value);
         }
     },

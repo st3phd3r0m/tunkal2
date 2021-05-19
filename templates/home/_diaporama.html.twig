@@ -9,7 +9,7 @@
 <div id="myModal" class="modal">
     <span class="close">&times;</span>
     <div class="mySlides">
-        <img src="{{ post.images[0].name ? asset('images/' ~ post.images[0].name )|imagine_filter('min150') : '' }}" alt="{{ post.metaTitle ?? '' }}">
+        <img src="{{ post.images|length > 0 ? asset('images/' ~ post.images[0].name )|imagine_filter('min150') : '' }}" alt="{{ post.metaTitle ?? '' }}">
     </div>
     <!-- Next/previous controls -->
     {% if post.images|length > 1 %}

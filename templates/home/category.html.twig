@@ -41,7 +41,7 @@
         </p>   #}
         
 
-        <a href="{{ path('post', {'categorySlug': post.category.slug, 'postSlug': post.slug }) }}" title="Aller à l'article {{ post.title }}">Lire</a>
+        <a href="{{ path('catpost', {'categorySlug': post.category.slug, 'postSlug': post.slug }) }}" title="Aller à l'article {{ post.title }}">Lire</a>
 
     </article>
 
