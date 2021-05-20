@@ -26,10 +26,10 @@
             <div>{{ post.content|raw }}</div>
             
             {# Illustration article #}
-            {% for image in post.images %}
-                <img class='hover-shadow' data-currentslide='{{ loop.index0 }}'
-                src='{{  asset('images/' ~ image.name )|imagine_filter('min300') }}' alt='{{ post.metaTitle ?? '' }}' data-image-path='{{ asset('images/' ~ image.name ) }}' >
-            {% endfor %}
+            {% if post.images|length > 0 %}
+                <img class='hover-shadow' data-currentslide='0'
+                src='{{  asset('images/' ~ post.images[0].name )|imagine_filter('min300') }}' alt='{{ post.metaTitle ?? '' }}' data-image-path='{{ asset('images/' ~ post.images[0].name ) }}' >
+            {% endif %}
             {# Fin Illustration article #}        
         </div>
 
@@ -39,12 +39,6 @@
             <div class='mySlides'>
                 <img src='{{ (post.images|length > 0) ? asset('images/' ~ post.images[0].name )|imagine_filter('min300') : '' }}' alt='{{ post.metaTitle ?? '' }}'>            
             </div>
-            <!-- Next/previous controls -->
-            {% if post.images|length > 1 %}
-                <span class='prev' data-plus='-1'>&#10094;</span>
-                <span class='next' data-plus='1'>&#10095;</span>            
-            {% endif %}
-
         </div> 
 
         {# <p class='keywords'>

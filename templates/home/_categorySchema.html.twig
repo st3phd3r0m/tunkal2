@@ -1,0 +1,25 @@
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"LiveBlogPosting",
+      "@id":"{{ currentUrl }}",
+      "about":{
+        "@type":"MusicGroup",
+        "name":"Tunkal"
+      },
+      "headline":"Tunkal - {{ post.metaTitle }}",
+      "description":"{{ post.metaDescription }}",
+      "liveBlogUpdate":[
+{% for post in posts|sort((a, b) => b.createdAt <=> a.createdAt) %}
+        {
+          "@type":"BlogPosting",
+          "headline":"{{ post.metaTitle }}",
+          "datePublished":"{{ post.createdAt|date('c') }}",
+{% if post.images|length > 0 %}
+          "image" : "{{ url('home') ~ 'images/' ~ post.images[0].name }}",
+{% endif %}
+        },
+{% endfor %}
+      ]
+    }
+    </script>

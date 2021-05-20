@@ -1,0 +1,23 @@
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"BlogPosting",
+      "@id":"{{ currentUrl }}",
+      "about":{
+        "@type":"MusicEvent",
+        "startDate":"{{ post.concertExpectedAt|date('c') }}",
+        "name":"Tunkal",
+        {% if post.images|length > 0 %}
+        "image" : "{{ url('home') ~ 'images/' ~ post.images[0].name }}",
+        {% endif %}
+        "url" : "{{ currentUrl }}",
+        "location" : {
+            "@type" : "Place",
+            "name" : "{{ post.concertLocation }}",
+        },
+      },
+      "datePublished":"{{ post.createdAt|date('c') }}",
+      "headline":"{{ post.metaTitle }}",
+      "description":"{{ post.metaDescription }}",
+    }
+    </script>

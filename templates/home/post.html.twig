@@ -11,11 +11,15 @@
 {# Fin Instagram #}
 
 <meta name="description" content="{{ post.metaDescription ?? '' }}">
+
+{{ include('home/_postSchema.html.twig') }}
+
 {% endblock %}
 
 {% block title %}{{ post.metaTitle ?? '' }}{% endblock %}
 
 {% block body %}
+
     <article class="post">
         <h2>{{ post.title ?? '' }}</h2>
         <p class="createdAt">Le <time datetime="{{ post.createdAt|date('Y-m-d') }}">{{ post.createdAt|date('d-m-Y') }}</time></p>

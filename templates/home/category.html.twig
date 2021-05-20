@@ -11,6 +11,9 @@
 {# Fin Instagram #}
 
 <meta name="description" content="{{ post.metaDescription ?? '' }}">
+
+{{ include('home/_categorySchema.html.twig') }}
+
 {% endblock %}
 
 {% block title %}{{ post.metaTitle ?? '' }}{% endblock %}
@@ -22,25 +25,40 @@
 <h2>{{ post.metaTitle }}</h2>
 
 {% for post in posts|sort((a, b) => b.createdAt <=> a.createdAt) %}
-    <article>
+    <article class='index'>
         <h3>{{ post.title }}</h3>
         <p class="createdAt">Le <time datetime="{{ post.createdAt|date('Y-m-d') }}">{{ post.createdAt|date('d-m-Y') }}</time></p>
         <div>
             <p>{{ post.metaDescription }}</p>
             {# Illustration article #}
             {% if post.images|length > 0 %}
-                <img src="{{ asset('images/' ~ post.images[0].name )|imagine_filter('min300') }}" alt="{{ post.metaTitle ?? '' }}">
+                <img class='hover-shadow' data-currentslide='0'
+                src='{{  asset('images/' ~ post.images[0].name )|imagine_filter('min300') }}' alt='{{ post.metaTitle ?? '' }}' data-image-path='{{ asset('images/' ~ post.images[0].name ) }}' >
             {% endif %}
-            {# Fin Illustration article #}
+            {# Fin Illustration article #}   
         </div>
 
+        <!-- The Modal -->
+        <div id='myModal' class='modal'>
+            <span class='close'>&times;</span>
+            <div class='mySlides'>
+                <img src='{{ (post.images|length > 0) ? asset('images/' ~ post.images[0].name )|imagine_filter('min300') : '' }}' alt='{{ post.metaTitle ?? '' }}'>            
+            </div>
+            <span class="prev" data-plus="-1">&#10094;</span>
+            <span class="next" data-plus="1">&#10095;</span>               
+        </div> 
+
+        <div>
+            {% if (null != post.concertExpectedAt) and ( null != post.concertLocation ) and ( post.concertExpectedAt.timestamp > date().timestamp ) %}
+                <p>Concert prévu le <time datetime='{{ post.concertExpectedAt|date('d-m-Y') }}'>{{ post.concertExpectedAt|date('d-m-Y') }}</time> à {{ post.concertLocation }}</p>
+            {% endif %}
+        </div>
         {# <p class="keywords">
             {% for keyword in post.keywords %}
                 #<strong>{{ keyword }}</strong>
             {% endfor %}
         </p>   #}
         
-
         <a href="{{ path('catpost', {'categorySlug': post.category.slug, 'postSlug': post.slug }) }}" title="Aller à l'article {{ post.title }}">Lire</a>
 
     </article>

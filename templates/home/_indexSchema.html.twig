@@ -7,16 +7,16 @@
 {% if banner is defined and banner != false %}
     'logo': {
         '@type': 'ImageObject',
-        'url': '{{ currentUrl|slice(0, -1) ~ asset('images/'~ banner.image) }}'
+        'url': '{{ url('home') ~ 'images/' ~ banner.image }}'
     },
 {% endif %}
 {% if post.images|length > 0 %}
     'image': {
         '@type': 'ImageObject',
-        'url': '{{ currentUrl|slice(0, -1) ~ asset('images/' ~ post.images[0].name ) }}'
+        'url': '{{ url('home') ~ 'images/' ~ post.images[0].name }}'
     },
 {% endif %}
-    'url': '{{ currentUrl }}',
+    'url': '{{ url('home') }}',
     'genre': [
         'Metal',
         'Death Metal',
@@ -45,7 +45,9 @@
         'name': '{{ link.title }}',
         'description': '{{ link.content }}',
         'embedUrl': '{{ link.url }}',
+        {% if link.image != null %}
 		'thumbnailUrl':'{{ asset('images/' ~ link.image )|imagine_filter('min300') }}',
+        {% endif %}
         'uploadDate':'{{ link.uploadedAt|date('c') }}'
         {% endif %}
     }{{ loop.last ? '' : ',' }}
