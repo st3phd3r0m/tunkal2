@@ -16,20 +16,18 @@ class AppExtension extends AbstractExtension
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param Object $object
      * @return string
      */
-    public function getClass(Object $object)
+    public function getClass(object $object)
     {
         return (new \ReflectionClass($object))->getShortName();
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param string $str
      * @return string
      */
     public function lowerCaseFirstChar(string $str)
