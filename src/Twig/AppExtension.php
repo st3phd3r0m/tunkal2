@@ -20,7 +20,8 @@ class AppExtension extends AbstractExtension
         return (new \ReflectionClass($object))->getShortName();
     }
 
-    public function lowerCaseFirstChar(string $str){
+    public function lowerCaseFirstChar(string $str)
+    {
         return lcfirst($str);
     }
 }

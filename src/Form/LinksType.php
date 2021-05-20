@@ -33,8 +33,8 @@ class LinksType extends AbstractType
                     'Zone des médias audio/vidéo' => 'media',
                     'copyright' => 'copyright',
                     'Bas de page (footer)' => 'footer',
-                    'Bannière (haut de page)'=>'banner',
-                    'x-icon (head)'=>'xicon'
+                    'Bannière (haut de page)' => 'banner',
+                    'x-icon (head)' => 'xicon',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -78,8 +78,8 @@ class LinksType extends AbstractType
                     'Lien sortant' => 'external',
                     'Catégorie' => 'category',
                     'Article' => 'post',
-                    'Bannière (haut de page)'=>'banner',
-                    'x-icon (head)'=>'xicon'
+                    'Bannière (haut de page)' => 'banner',
+                    'x-icon (head)' => 'xicon',
                 ],
                 'constraints' => [
                     new NotBlank([

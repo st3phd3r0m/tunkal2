@@ -98,7 +98,7 @@ class Posts
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * 
+     *
      * @var \DateTimeInterface
      */
     private $concert_expected_at;

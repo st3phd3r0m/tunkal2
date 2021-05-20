@@ -15,7 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CategoriesController extends AbstractController
 {
-
     private LinksRepository $linksRepository;
 
     public function __construct(LinksRepository $linksRepository)
@@ -46,10 +45,11 @@ class CategoriesController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($category);
             $entityManager->flush();
-            $this->newLink( $category );
+            $this->newLink($category);
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'La catégorie a bien été créée.');
             $this->addFlash('success', 'Le lien correspondant a bien été créé.');
+
             return $this->redirectToRoute('categories_index');
         }
 
@@ -71,6 +71,7 @@ class CategoriesController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'La catégorie a bien été modifiée.');
+
             return $this->redirectToRoute('categories_index');
         }
 
@@ -98,7 +99,6 @@ class CategoriesController extends AbstractController
             //Supression du lien correspondant
             $this->removeLink($category);
 
-
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'La catégorie a bien été supprimée');
             $this->addFlash('success', 'Le lien correspondant a bien été supprimé');
@@ -107,7 +107,7 @@ class CategoriesController extends AbstractController
         return $this->redirectToRoute('categories_index');
     }
 
-    public function newLink(Categories $category): Void
+    public function newLink(Categories $category): void
     {
         $entityManager = $this->getDoctrine()->getManager();
         $link = new Links();
@@ -121,10 +121,10 @@ class CategoriesController extends AbstractController
         $entityManager->flush();
     }
 
-    public function removeLink(Categories $category): Void
+    public function removeLink(Categories $category): void
     {
-        $link = $this->linksRepository->findOneBy(['url'=>'/cat/'.$category->getSlug()]);
-        if($link){
+        $link = $this->linksRepository->findOneBy(['url' => '/cat/'.$category->getSlug()]);
+        if ($link) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($link);
             $entityManager->flush();

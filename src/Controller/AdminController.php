@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\CategoriesRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\LinksRepository;
 use App\Repository\PostsRepository;
 use App\Repository\UsersRepository;
-use App\Repository\CategoriesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,7 +44,7 @@ class AdminController extends AbstractController
             'nbrComments' => $nbrComments,
             'nbrPosts' => $nbrPosts,
             'nbrLinks' => $nbrLinks,
-            'nbrCategories'=> $nbrCategories
+            'nbrCategories' => $nbrCategories,
         ]);
     }
 }

@@ -9,11 +9,11 @@ use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
 use App\Repository\PostsRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @Route("/")
@@ -48,12 +48,13 @@ class HomeController extends AbstractController
     {
         $post = $this->newFirmPage($category->getSlug());
         $posts = $paginator->paginate(
-            $this->postsRepository->findBy(['category'=> $category]),
+            $this->postsRepository->findBy(['category' => $category]),
             //Le numero de la page, si aucun numero, on force la page 1
             $request->query->getInt('page', 1),
             //Nombre d'élément par page
             10
         );
+
         return $this->render('home/category.html.twig', [
             'posts' => $posts,
             'post' => $post,
@@ -86,8 +87,9 @@ class HomeController extends AbstractController
             $this->addFlash('commentSuccess', 'Commentaire enregistré');
 
             $_route = $request->get('_route');
+
             return $this->redirectToRoute($_route, [
-                'categorySlug'=> $categorySlug,
+                'categorySlug' => $categorySlug,
                 'postSlug' => $post->getSlug(),
             ]);
         }
@@ -109,7 +111,7 @@ class HomeController extends AbstractController
     public function newFirmPage(string $slug = null)
     {
         $post = $this->postsRepository->findOneBy(['slug' => $slug]);
-        
+
         if (!$post) {
             $slug = ucfirst(str_replace('-', ' ', $slug));
             //Instanciation entité Posts

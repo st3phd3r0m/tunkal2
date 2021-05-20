@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Posts;
 use App\Entity\Images;
+use App\Entity\Posts;
 use App\Form\PostsType;
 use App\Repository\PostsRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -58,12 +58,14 @@ class PostsController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
             $this->addFlash('success', 'Nouvel article créé.');
+
             return $this->redirectToRoute('posts_index');
         }
+
         return $this->render('posts/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
-            'images'=> []
+            'images' => [],
         ]);
     }
 
@@ -101,19 +103,22 @@ class PostsController extends AbstractController
             $entityManager->flush();
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'L\'article a bien été modifié.');
+
             return $this->redirectToRoute('posts_index');
         }
+
         return $this->render('posts/edit.html.twig', [
             'post' => $post,
-            'images'=> $oldImagesNames,
+            'images' => $oldImagesNames,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param Collection|Images[] $imageCollecion
+     *
      * @return array<int, string>
      */
     public function getImagesNames($imageCollecion)
@@ -122,37 +127,36 @@ class PostsController extends AbstractController
         foreach ($imageCollecion as $image) {
             $imagesNames[] = $image->getName();
         }
+
         return $imagesNames;
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param array<int, string> $oldImagesNames
      * @param array<int, string> $images_names
      * @param array<int, Images> $oldImages
-     * @param ObjectManager $entityManager
-     * @return Void
+     * @param ObjectManager      $entityManager
      */
-    public function deleteImages($oldImagesNames, $images_names, $oldImages, $entityManager): Void
+    public function deleteImages($oldImagesNames, $images_names, $oldImages, $entityManager): void
     {
         $images_to_delete = array_diff($oldImagesNames, $images_names);
         foreach ($images_to_delete as $key => $image) {
             //Suppression en bdd de l'ancien jeu d'instances Images
-            if($oldImages[$key]->getName() === $image){
+            if ($oldImages[$key]->getName() === $image) {
                 $entityManager->remove($oldImages[$key]);
             }
         }
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
      * @param array<int, string> $oldImagesNames
      * @param array<int, string> $images_names
-     * @return Void
      */
-    public function deleteFiles($oldImagesNames, $images_names): Void
+    public function deleteFiles($oldImagesNames, $images_names): void
     {
         $files_to_delete = array_diff($oldImagesNames, $images_names);
         foreach ($files_to_delete as $image) {
@@ -161,7 +165,7 @@ class PostsController extends AbstractController
             $finder->files()->name($image)->in('../public');
             foreach ($finder as $key => $file) {
                 $fileNameWithExtension[] = $file->getRelativePathname();
-                $this->filesystem->remove( '../public/'.$file->getRelativePathname());
+                $this->filesystem->remove('../public/'.$file->getRelativePathname());
             }
         }
     }
@@ -178,7 +182,7 @@ class PostsController extends AbstractController
             //Suppression des images et des miniatures associées au produit
             $images = $post->getImages();
             $imagesNames = $this->getImagesNames($images);
-            $this->deleteFiles( $this->getImagesNames($images) , []);
+            $this->deleteFiles($this->getImagesNames($images), []);
             $this->deleteImages($imagesNames, [], $images, $entityManager);
             //Commentaires associés au produit
             $comments = $post->getComments();

@@ -55,7 +55,7 @@ class Links
      *
      * @var string
      */
-    private $image_alt;   
+    private $image_alt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)

@@ -11,8 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\Length;
@@ -83,7 +81,7 @@ class PostsType extends AbstractType
                 'mapped' => false,
                 'data' => (null != $builder->getData()->getKeywords()) ? implode(';', $builder->getData()->getKeywords()) : '',
             ])
-            
+
             ->add('images', CollectionType::class, [
                 'required' => false,
                 'label' => 'Images d\'illustration',
@@ -95,9 +93,9 @@ class PostsType extends AbstractType
             ])
             ->add('category', EntityType::class, [
                 'label' => 'Catégorie de l\'article',
-                'class'=> Categories::class,
-                'choice_label'=>'name',
-                'required' => false
+                'class' => Categories::class,
+                'choice_label' => 'name',
+                'required' => false,
             ])
             ->add('concert_location', TextType::class, [
                 'required' => false,
