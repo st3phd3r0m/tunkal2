@@ -98,7 +98,7 @@ class UsersController extends AbstractController
      */
     public function changePassword(Request $request, Users $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        if ($this->getUser()->getUserName() === $user->getUsername()) {
+        if ($this->getUser() === $user) {
             $form = $this->createForm(UsersType::class, $user);
             $form->remove('email');
             $form->remove('roles');

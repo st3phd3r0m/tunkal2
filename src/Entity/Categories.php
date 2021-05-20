@@ -17,16 +17,21 @@ class Categories
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * 
+     * @var string
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Posts::class, mappedBy="category")
+     * @var Collection|Posts[]
      */
     private $posts;
 

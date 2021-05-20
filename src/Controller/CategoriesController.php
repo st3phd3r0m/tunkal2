@@ -115,7 +115,7 @@ class CategoriesController extends AbstractController
         $link->setType('category');
         $link->setTitle($category->getName());
         $link->setContent($category->getName());
-        $link->setIsActive(0);
+        $link->setIsActive(false);
         $link->setUpdatedAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         $entityManager->persist($link);
         $entityManager->flush();

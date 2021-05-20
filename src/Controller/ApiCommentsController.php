@@ -34,7 +34,8 @@ class ApiCommentsController extends AbstractController
             if ($page > $this->commentsRepository->getNumberOfPages($slug)) {
                 return new JsonResponse('', 204);
             }
-            $comments = $this->commentsRepository->getPage($page, $slug);
+
+            $comments = $this->commentsRepository->getPage((int) $page, $slug);
 
             return new JsonResponse($comments);
         }
@@ -52,7 +53,7 @@ class ApiCommentsController extends AbstractController
             if (!$this->isCsrfTokenValid('comments', $token)) {
                 return new JsonResponse('Unauthorized', 401);
             }
-            $data = (array) json_decode($request->getContent());
+            $data = (array) json_decode((string) $request->getContent());
             $comment = new Comments();
             $form = $this->createForm(CommentsType::class, $comment);
             $form->submit($data);

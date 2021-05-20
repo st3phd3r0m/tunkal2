@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CategoriesType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): Void
     {
         $builder
             ->add('name', TextType::class, [
@@ -35,7 +35,7 @@ class CategoriesType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): Void
     {
         $resolver->setDefaults([
             'data_class' => Categories::class,

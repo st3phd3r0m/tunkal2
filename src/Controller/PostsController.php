@@ -94,7 +94,7 @@ class PostsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             //On récupère les instances de l'entité Images, instanciées lors de la collection dans le formulaire d'ajout d'images
             $newImages = $post->getImages();
-            $newImagesNames = $this->getImagesNames($newImages);
+            $newImagesNames = $this->getImagesNames($newImages->toArray());
             $this->deleteImages($oldImagesNames, $newImagesNames, $oldImages, $entityManager);
             $this->deleteFiles($oldImagesNames, $newImagesNames);
             //Récupération des mots-clés en tant que chaine de caractères et séparation en array avec un délimiteur ";"
@@ -117,7 +117,7 @@ class PostsController extends AbstractController
     /**
      * Undocumented function.
      *
-     * @param Collection|Images[] $imageCollecion
+     * @param Images[] $imageCollecion
      *
      * @return array<int, string>
      */
@@ -180,7 +180,7 @@ class PostsController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             //Suppression des images et des miniatures associées au produit
-            $images = $post->getImages();
+            $images = $post->getImages()->toArray();
             $imagesNames = $this->getImagesNames($images);
             $this->deleteFiles($this->getImagesNames($images), []);
             $this->deleteImages($imagesNames, [], $images, $entityManager);

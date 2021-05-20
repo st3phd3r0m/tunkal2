@@ -15,11 +15,23 @@ class AppExtension extends AbstractExtension
         ];
     }
 
-    public function getClass($object)
+    /**
+     * Undocumented function
+     *
+     * @param Object $object
+     * @return string
+     */
+    public function getClass(Object $object)
     {
         return (new \ReflectionClass($object))->getShortName();
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param string $str
+     * @return string
+     */
     public function lowerCaseFirstChar(string $str)
     {
         return lcfirst($str);

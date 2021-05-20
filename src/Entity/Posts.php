@@ -88,11 +88,15 @@ class Posts
 
     /**
      * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="posts")
+     * 
+     * @var Categories
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @var string
      */
     private $concert_location;
 
