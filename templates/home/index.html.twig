@@ -69,7 +69,7 @@
         </ul>
         <div>
         {% for link in links()|filter( link =>  link.position == 'copyright' ) %}
-            <a href='{{ link.url }}' title='{{ link.title }}' target='_blank'>{{ link.content|raw }}</a>
+            <a href='{{ link.url }}' title='{{ link.title }}' target='_blank'><img src='{{ asset('images/' ~ link.image ) }}' alt='{{ link.imageAlt }}'></a>
         {% endfor %}
         </div>
     </section>
