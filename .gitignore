@@ -1,4 +1,8 @@
 ###> symfony/framework-bundle ###
+# .gitlab-ci.yml
+/config/secrets
+.env
+vraisite.text
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -16,6 +20,8 @@
 
 ###> liip/imagine-bundle ###
 /public/media/cache/
+/public/images/
+/public/.htaccess
 ###< liip/imagine-bundle ###
 
 ###> symfony/webpack-encore-bundle ###
