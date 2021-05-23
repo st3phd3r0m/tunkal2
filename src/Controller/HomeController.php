@@ -6,7 +6,9 @@ use App\Entity\Categories;
 use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Form\CommentsType;
+use App\Repository\CategoriesRepository;
 use App\Repository\CommentsRepository;
+use App\Repository\LinksRepository;
 use App\Repository\PostsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -14,6 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @Route("/")
@@ -22,11 +25,15 @@ class HomeController extends AbstractController
 {
     private PostsRepository $postsRepository;
     private CommentsRepository $commentsRepository;
+    private LinksRepository $linksRepository;
+    private CategoriesRepository $categoriesRepository;
 
-    public function __construct(PostsRepository $postsRepository, CommentsRepository $commentsRepository)
+    public function __construct(PostsRepository $postsRepository, CommentsRepository $commentsRepository, LinksRepository $linksRepository, CategoriesRepository $categoriesRepository)
     {
         $this->postsRepository = $postsRepository;
         $this->commentsRepository = $commentsRepository;
+        $this->linksRepository = $linksRepository;
+        $this->categoriesRepository = $categoriesRepository;
     }
 
     /**
@@ -98,6 +105,59 @@ class HomeController extends AbstractController
             'post' => $post,
             'numbOfCommentsPages' => $this->commentsRepository->getNumberOfPages($post->getSlug()),
             'form' => $formComment->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/sitemap.xml", name="sitemap", methods={"GET"}, defaults={"_format"="xml"})
+     *
+     */
+    public function showSitemap(Request $request): Response
+    {
+        $hostname = $request->getSchemeAndHttpHost();
+        $post = $this->postsRepository->findOneBy(['slug'=>'accueil']);
+        $urls[] = [
+            'loc' =>  $this->generateUrl('home'), 
+            'lastmod' => $post->getCreatedAt()->format('Y-m-d'),
+            'image' => $post->getImages()->first(),
+            'title' => $post->getMetaTitle(), 
+        ];
+
+        $categories = $this->categoriesRepository->findAll();
+        foreach ($categories as $category) {
+            $post = $this->postsRepository->findOneBy(['slug'=> $category->getSlug() ]);
+            $urls[] = [
+                'loc' =>  $this->generateUrl('category', [ 'slug' => $category->getSlug()] ) ,
+                'lastmod' => $post->getCreatedAt()->format('Y-m-d'),
+                'image' => $post->getImages()->first(),
+                'title' => $post->getMetaTitle()
+            ];
+            $posts = $this->postsRepository->findBy(['category' => $category]);
+            foreach ($posts as $post) {
+                $urls[] = [
+                    'loc' =>  $this->generateUrl('catpost', [ 
+                        'categorySlug' => $category->getSlug(),
+                        'postSlug' => $post->getSlug()
+                        ]),
+                    'lastmod' => $post->getCreatedAt()->format('Y-m-d'),
+                    'image' => $post->getImages()->first(),
+                    'title' => $post->getMetaTitle()
+                ];
+                $urls[] = [
+                    'loc' =>  $this->generateUrl('post', [
+                        'postSlug' => $post->getSlug()
+                        ]),
+                    'lastmod' => $post->getCreatedAt()->format('Y-m-d'),
+                    'image' => $post->getImages()->first(),
+                    'title' => $post->getMetaTitle(),
+                ];
+            }
+        }
+
+        // dd($urls);
+        return $this->render('home/sitemap.xml.twig', [
+            'hostname' => $hostname,
+            'urls' => $urls
         ]);
     }
 

@@ -31,6 +31,22 @@ class LinksRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return array<int, array<string, string>>
+     */
+    public function getCategoriesUrls(){
+        $dql = 'SELECT l.url FROM links as l'
+            .' WHERE l.type = "category" AND l.is_active = true';
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->executeQuery($dql);
+        $result = $stmt->fetchAllAssociative();
+        $conn->close();
+
+        return $result;
+    }
+
     /*
     public function findOneBySomeField($value): ?Links
     {

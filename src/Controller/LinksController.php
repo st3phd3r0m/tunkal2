@@ -123,4 +123,5 @@ class LinksController extends AbstractController
 
         return $this->redirectToRoute('links_index');
     }
+
 }
