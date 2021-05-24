@@ -1,0 +1,35 @@
+{% extends 'home/base.html.twig' %}
+
+{% set currentUrl = url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+
+{% block head %}
+{# Instagram #}
+<meta property="og:title" content="{{ post.metaTitle ?? '' }}">
+<meta property="og:description" content="{{ post.metaDescription ?? '' }}">
+<meta property="og:url" content="{{ currentUrl }}">
+<meta property="og:type" content="website">
+{# Fin Instagram #}
+
+<meta name="description" content="{{ post.metaDescription ?? '' }}">
+
+{% endblock %}
+
+{% block title %}{{ post.metaTitle ?? '' }}{% endblock %}
+
+{% block body %}
+
+    <article class="post">
+        <h2>{{ post.title ?? '' }}</h2>
+        <div class="postcontent">{{ post.content|raw }}</div>
+    </article>
+
+    {# Formulaire commentaire #}
+    <div>
+        <h2>Écrire un commentaire</h2>
+        {{ include('home/_courrielform.html.twig') }}
+    </div>
+    {# Fin Formulaire commentaire #}
+{% endblock %}
+{% block javascripts %}
+    {{ encore_entry_script_tags('courriels') }}
+{% endblock %}

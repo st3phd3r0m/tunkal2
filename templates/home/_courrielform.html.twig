@@ -1,0 +1,49 @@
+
+{% set nameConstrainsts = [] %}
+{% for item in form.name.vars.errors.form.config.options.constraints %}
+    {% set nameConstrainsts = nameConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set mailFromConstrainsts = [] %}
+{% for item in form.mail_from.vars.errors.form.config.options.constraints %}
+    {% set mailFromConstrainsts = mailFromConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set subjectConstrainsts = [] %}
+{% for item in form.subject.vars.errors.form.config.options.constraints %}
+    {% set subjectConstrainsts = subjectConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set messageConstrainsts = [] %}
+{% for item in form.message.vars.errors.form.config.options.constraints %}
+    {% set messageConstrainsts = messageConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{% set nosiarConstrainsts = [] %}
+{% for item in form.nosiar.vars.errors.form.config.options.constraints %}
+    {% set nosiarConstrainsts = nosiarConstrainsts|merge({ 0: {'name': lcfirst(class(item)), 'constraintWidget': item } }) %}
+{% endfor %}
+
+{{ form_start(form) }}
+    <div id="comment_sent" :class="classCommentSent" v-show="messageapi != ''"> ${ messageapi }$ </div>
+    <div id="comments">
+        {{ form_label(form.name) }}
+        <span class="errormessage"> ${ errormessages.courrielsName }$ </span>
+        {{ form_widget(form.name, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': nameConstrainsts|json_encode }}) }}
+
+        {{ form_label(form.mail_from) }}
+        <span class="errormessage"> ${ errormessages.courrielsMail_from }$ </span>
+        {{ form_widget(form.mail_from, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': mailFromConstrainsts|json_encode }}) }}
+
+        {{ form_label(form.subject) }}
+        <span class="errormessage"> ${ errormessages.courrielsSubject }$ </span>
+        {{ form_widget(form.subject, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': subjectConstrainsts|json_encode }}) }}
+
+        {{ form_label(form.message) }}
+        <span class="errormessage"> ${ errormessages.courrielsMessage }$ </span>
+        {{ form_widget(form.message, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': messageConstrainsts|json_encode }}) }}
+
+        {{ form_widget(form.nosiar, {'attr': {'v-on:change': 'onCheckFields', 'data-constraints': nosiarConstrainsts|json_encode }}) }}    
+    </div>
+    <button class="btn" :disabled="disabled" v-on:click='onSendComment'>{{ button_label|default('Valider') }}</button>
+{{ form_end(form) }}

@@ -26,6 +26,7 @@ Encore
     .addEntry('courrielsTable', './assets/courrielsTable.js')
     .addEntry('linkForm', './assets/linkForm.js')
     .addEntry('comments', './assets/comments.js')
+    .addEntry('courriels', './assets/courriels.js')
     .addEntry('app', './assets/app.js')
     .addEntry('loadvideo', './assets/home/loadvideo.js')
 

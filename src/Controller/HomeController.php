@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Categories;
 use App\Entity\Comments;
+use App\Entity\Courriels;
 use App\Entity\Posts;
 use App\Form\CommentsType;
+use App\Form\CourrielsType;
 use App\Repository\CategoriesRepository;
 use App\Repository\CommentsRepository;
 use App\Repository\LinksRepository;
@@ -45,6 +47,36 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/contact", name="contact", methods={"GET", "POST"})
+     */
+    public function contact(Request $request): Response
+    {
+        $post = $this->newFirmPage('contact');
+
+        // Instanciation de Comments, création formulaire commentaire
+        $courriel = new Courriels();
+        $formComment = $this->createForm(CourrielsType::class, $courriel);
+        $formComment->handleRequest($request);
+
+        //Soumission formulaire commentaire
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            $courriel->setSentAt(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($courriel);
+            $entityManager->flush();
+
+            //Envoi d'un message utilisateur
+            $this->addFlash('commentSuccess', 'Message enregistré');
+        }
+
+        return $this->render('home/contact.html.twig', [
+            'post' => $post,
+            'form' => $formComment->createView(),
         ]);
     }
 

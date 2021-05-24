@@ -32,9 +32,8 @@ class CourrielsType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
-                'label' => false,
+                'label' => 'Nom',
                 'attr' => [
-                    'placeholder' => 'Nom',
                     'minlength' => 4,
                     'maxlength' => 20,
                     'pattern' => '[A-Za-z]{4,20}.{0,}',
@@ -61,10 +60,7 @@ class CourrielsType extends AbstractType
             ])
             ->add('mail_from', EmailType::class, [
                 'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'E-mail',
-                ],
+                'label' => 'E-mail',
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une adresse e-mail valide',
@@ -76,13 +72,12 @@ class CourrielsType extends AbstractType
             ])
             ->add('subject', TextType::class, [
                 'required' => true,
-                'label' => false,
+                'label' => 'Objet du message',
                 'attr' => [
-                    'placeholder' => 'Objet de votre message',
                     'minlength' => 4,
                     'maxlength' => 50,
                     'pattern' => '[A-Za-z]{4,50}.{0,}',
-                    'title' => 'L\'objet de votre message doit commencer par 4 lettres minimum',
+                    'title' => "L'objet de votre message doit commencer par 4 lettres minimum",
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -91,23 +86,22 @@ class CourrielsType extends AbstractType
                     new Length([
                         'min' => 5,
                         'max' => 50,
-                        'minMessage' => "L\'objet de votre message doit comporter au moins {{ limit }}
+                        'minMessage' => "L'objet de votre message doit comporter au moins {{ limit }}
                         caractères.",
-                        'maxMessage' => 'L\'objet de votre message doit comporter moins de {{ limit }}
-                        caractères.',
+                        'maxMessage' => "L'objet de votre message doit comporter moins de {{ limit }}
+                        caractères.",
                     ]),
                     new Regex([
                         'pattern' => '/^[a-zA-Z]{5,50}/',
                         'match' => true,
-                        'message' => 'L\'objet de votre message doit commencer par 5 lettres minimum',
+                        'message' => "L'objet de votre message doit commencer par 5 lettres minimum",
                     ]),
                 ],
             ])
             ->add('message', TextareaType::class, [
                 'required' => true,
-                'label' => false,
+                'label' => 'Saisissez votre message',
                 'attr' => [
-                    'placeholder' => 'Saisissez votre message',
                     'minlength' => 4,
                     'pattern' => '[A-Za-z]{4,}.{0,}',
                     'title' => 'Votre message doit commencer par 4 lettres minimum',
@@ -118,11 +112,14 @@ class CourrielsType extends AbstractType
                     ]),
                     new Length([
                         'min' => 10,
+                        'max' => 500,
                         'minMessage' => 'Votre message doit comporter au moins {{ limit }}
+                        caractères.',
+                        'maxMessage' => 'Votre nom doit comporter moins de {{ limit }}
                         caractères.',
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]{4,240}/',
+                        'pattern' => '/^[a-zA-Z]{4,500}/',
                         'match' => true,
                         'message' => 'Votre message doit commencer par 4 lettres minimum',
                     ]),
