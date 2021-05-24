@@ -1,0 +1,63 @@
+{% extends 'base-admin.html.twig' %}
+
+{% block title %}Index des courriels{% endblock %}
+{% block h1 %}Index des courriels{% endblock %}
+{% block entity %}Courriels{% endblock %}
+{% block body %}
+<div id="courrielsTable">
+	<message-api :message="messageApi" :success="successApi" :fail="failApi"></message-api>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>
+					{{ include('courriels/_delete_collection.html.twig') }}
+				</th>
+				<th>
+					{{ knp_pagination_sortable(courriels, 'Ecrit par', 'name') }}
+				</th>
+				<th class="d-none d-lg-table-cell">
+					{{ knp_pagination_sortable(courriels, 'Mail_from', 'mail_from') }}
+				</th>
+				<th class="d-none d-sm-table-cell">
+					{{ knp_pagination_sortable(courriels, 'Subject', 'subject') }}
+				</th>
+				<th>
+					{{ knp_pagination_sortable(courriels, 'Date', 'sent_at') }}
+				</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for courriel in courriels %}
+			<tr>
+				<td>
+					<input type="checkbox" id={{ "courriel_"~courriel.id }} name={{ "delete_courriel_"~courriel.id }} data-courrielid={{ courriel.id }} data-_token={{ csrf_token('courriel' ~ courriel.id) }} v-on:click="onStoreCourrielsToDelete">
+				</td>
+				<td>{{ courriel.name }}</td>
+				<td class="d-none d-lg-table-cell">{{ courriel.mailFrom }}</td>
+				<td class="d-none d-sm-table-cell">{{ courriel.subject }}</td>
+				<td>{{ courriel.sentAt ? courriel.sentAt|date('Y-m-d H:i:s') : '' }}</td>
+				<td>
+					<a href="{{ path('courriels_show', {'id': courriel.id}) }}" class="btn btn-primary"><i class="fas fa-glasses"></i></a>
+					{{ include('courriels/_delete_form.html.twig') }}
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="7">no records found</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+		<div>
+			{{ knp_pagination_render(courriels) }}
+		</div>
+	</table>
+	<div>
+		{{ knp_pagination_render(courriels) }}
+	</div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('courrielsTable') }}
+{% endblock %}

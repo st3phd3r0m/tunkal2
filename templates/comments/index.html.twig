@@ -1,11 +1,10 @@
 {% extends 'base-admin.html.twig' %}
 
-{% block title %}Index des Commentaires{% endblock %}
+{% block title %}Index des commentaires{% endblock %}
 {% block h1 %}Index des commentaires{% endblock %}
 {% block entity %}Commentaires{% endblock %}
 {% block body %}
 <div id="commentsTable">
-	{# <div id="message-api" class="alert d-none" role="alert"></div> #}
 	<message-api :message="messageApi" :success="successApi" :fail="failApi"></message-api>
 
 	{# Barre de recherche #}

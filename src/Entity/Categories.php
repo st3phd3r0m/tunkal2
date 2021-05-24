@@ -38,7 +38,7 @@ class Categories
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=255, unique=true, nullable=true)
+     * @ORM\Column(length=100, unique=true, nullable=true)
      *
      * @var string
      */

@@ -80,7 +80,7 @@ class Posts
 
     /**
      * @Gedmo\Slug(fields={"title"})
-     * @ORM\Column(length=255, unique=true, nullable=true)
+     * @ORM\Column(length=100, unique=true, nullable=true)
      *
      * @var string
      */

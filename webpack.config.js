@@ -23,6 +23,7 @@ Encore
     .addEntry('postForm', './assets/postForm.js')
     .addEntry('categoryForm', './assets/categoryForm.js')
     .addEntry('commentsTable', './assets/commentsTable.js')
+    .addEntry('courrielsTable', './assets/courrielsTable.js')
     .addEntry('linkForm', './assets/linkForm.js')
     .addEntry('comments', './assets/comments.js')
     .addEntry('app', './assets/app.js')
