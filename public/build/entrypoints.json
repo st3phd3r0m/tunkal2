@@ -1,0 +1,88 @@
+{
+  "entrypoints": {
+    "postForm": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/761.55345ec2.js",
+        "/build/postForm.8a1f12ba.js"
+      ]
+    },
+    "categoryForm": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/categoryForm.858792f5.js"
+      ]
+    },
+    "commentsTable": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/761.55345ec2.js",
+        "/build/674.d72b2936.js",
+        "/build/commentsTable.6ca542c1.js"
+      ]
+    },
+    "courrielsTable": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/761.55345ec2.js",
+        "/build/674.d72b2936.js",
+        "/build/courrielsTable.e93b180f.js"
+      ]
+    },
+    "linkForm": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/674.d72b2936.js",
+        "/build/linkForm.5157be34.js"
+      ]
+    },
+    "comments": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/761.55345ec2.js",
+        "/build/674.d72b2936.js",
+        "/build/298.c0132481.js",
+        "/build/comments.292ddba5.js"
+      ]
+    },
+    "courriels": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/452.3e347d6c.js",
+        "/build/761.55345ec2.js",
+        "/build/674.d72b2936.js",
+        "/build/298.c0132481.js",
+        "/build/courriels.dead2233.js"
+      ]
+    },
+    "app": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/817.37e2402d.js",
+        "/build/761.55345ec2.js",
+        "/build/app.29ce4535.js"
+      ],
+      "css": [
+        "/build/app.71b7901e.css"
+      ]
+    },
+    "loadvideo": {
+      "js": [
+        "/build/runtime.457970e9.js",
+        "/build/loadvideo.e1fc7c69.js"
+      ]
+    }
+  }
+}
