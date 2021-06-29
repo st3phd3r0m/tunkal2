@@ -1,4 +1,4 @@
 framework:
     mailer:
-        dsn: ***REMOVED***
+        dsn:
 
