@@ -130,6 +130,7 @@ class HomeController extends AbstractController
         }
         
         return $this->render('home/sitemap.xml.twig', [
+            'banner' => $this->linksRepository->findBy(['type' => 'banner', 'position' => 'banner'])[0],
             'hostname' => $hostname,
             'homeUrl' => $homeUrl,
             'videos' => $videos,
