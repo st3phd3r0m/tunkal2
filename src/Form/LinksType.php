@@ -75,7 +75,7 @@ class LinksType extends AbstractType
                 'required' => true,
                 'label' => 'Type de lien à ajouter',
                 'choices' => [
-                    'Lien sortant' => 'external',
+                    'Lien sortant (ou page de contact)' => 'external',
                     'Catégorie' => 'category',
                     'Article' => 'post',
                     'Bannière (haut de page)' => 'banner',
