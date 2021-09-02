@@ -134,7 +134,7 @@ class CategoriesController extends AbstractController
     /**
      * @Route("/admin/api/categories", name="give_categories", methods={"GET"})
      */
-    public function givePosts(Request $request, CategoriesRepository $categoriesRepository): JsonResponse
+    public function giveCategories(Request $request, CategoriesRepository $categoriesRepository): JsonResponse
     {
         if ($request->isXmlHttpRequest()) {
             $token = $request->headers->get('authorization');
@@ -142,6 +142,10 @@ class CategoriesController extends AbstractController
                 return new JsonResponse('Unauthorized', 401);
             }
             $categories = $categoriesRepository->getCategories();
+
+            for ($compt=0; $compt < count($categories->data); $compt++) { 
+                $categories->data[$compt]['url']= $this->generateUrl('category', [ 'slug' => $categories->data[$compt]['slug']] );
+            }
 
             return new JsonResponse($categories, 200);
         }

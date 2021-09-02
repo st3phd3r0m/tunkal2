@@ -3,13 +3,13 @@
         <div class="form-group" v-if="fieldtype=='category'">
             <label for="category">Sélectionnez une catégorie</label>
             <select id="category" name="category" class="form-control" v-on:click="onClickedEvent">
-                <option v-for="item in items" :key="item.id" :value="item.slug">{{ item.name }}</option>
+                <option v-for="item in items" :key="item.id" :value="item.url">{{ item.name }}</option>
             </select>
         </div>
         <div class="form-group" v-if="fieldtype=='post'">
             <label for="post">Sélectionnez un article</label>
             <select id="post" name="post" class="form-control" v-on:click="onClickedEvent">
-                <option v-for="item in items" :key="item.id" :value="item.slug">{{ item.title }}</option>
+                <option v-for="item in items" :key="item.id" :value="item.url">{{ item.title }}</option>
             </select>
         </div>
     </div>
@@ -65,7 +65,6 @@ export default {
         },
         onClickedEvent: function(event){
             let value = event.target.value;
-            value = '/'+this.fieldtype+'/'+value;
             this.$emit('clicked', value);
         }
     },

@@ -25,7 +25,7 @@ class PostsRepository extends ServiceEntityRepository
     public function getPosts(): object
     {
         $dql = 'SELECT p.id, p.title, p.slug FROM posts as p'
-            .' WHERE p.category_id IS NULL';
+            .' WHERE p.category_id IS NOT NULL';
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->executeQuery($dql);
         $result = $stmt->fetchAllAssociative();

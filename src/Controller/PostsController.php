@@ -219,6 +219,10 @@ class PostsController extends AbstractController
             }
             $posts = $postsRepository->getPosts();
 
+            for ($compt=0; $compt < count($posts->data); $compt++) { 
+                $posts->data[$compt]['url']= $this->generateUrl('post', [ 'postSlug' => $posts->data[$compt]['slug']] );
+            }
+
             return new JsonResponse($posts, 200);
         }
 

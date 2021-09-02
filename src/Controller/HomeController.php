@@ -158,6 +158,7 @@ class HomeController extends AbstractController
     }
 
     /**
+     * @Route("/{_locale}/posts/{postSlug}", name="post", methods={"GET", "POST"}, requirements={"_locale": "fr_FR" })
      * @Route("/{_locale}/{categorySlug}/{postSlug}", name="catpost", methods={"GET", "POST"}, requirements={"_locale": "fr_FR" })
      * @ParamConverter("post", class="App\Entity\Posts", options={"mapping": {"postSlug":"slug"}}))
      */
