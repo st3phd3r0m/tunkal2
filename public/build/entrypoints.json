@@ -2,86 +2,91 @@
   "entrypoints": {
     "postForm": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/761.55345ec2.js",
-        "/build/postForm.8a1f12ba.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/vendors-node_modules_core-js_modules_es_string_replace_js.js",
+        "/build/postForm.js"
       ]
     },
     "categoryForm": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/categoryForm.858792f5.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_string_replace_js.js",
+        "/build/categoryForm.js"
       ]
     },
     "commentsTable": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/761.55345ec2.js",
-        "/build/674.d72b2936.js",
-        "/build/commentsTable.6ca542c1.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/vendors-node_modules_core-js_modules_es_promise_js.js",
+        "/build/commentsTable.js"
       ]
     },
     "courrielsTable": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/761.55345ec2.js",
-        "/build/674.d72b2936.js",
-        "/build/courrielsTable.e93b180f.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/vendors-node_modules_core-js_modules_es_promise_js.js",
+        "/build/courrielsTable.js"
       ]
     },
     "linkForm": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/674.d72b2936.js",
-        "/build/linkForm.5157be34.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_promise_js.js",
+        "/build/linkForm.js"
       ]
     },
     "comments": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/761.55345ec2.js",
-        "/build/674.d72b2936.js",
-        "/build/298.c0132481.js",
-        "/build/comments.292ddba5.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/vendors-node_modules_core-js_modules_es_promise_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_string_replace_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_join_js-node_modules_core-js_modules_es_regexp_-1a21e5.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_concat_js-node_modules_core-js_modules_es_numbe-cc4248.js",
+        "/build/comments.js"
       ]
     },
     "courriels": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/452.3e347d6c.js",
-        "/build/761.55345ec2.js",
-        "/build/674.d72b2936.js",
-        "/build/298.c0132481.js",
-        "/build/courriels.dead2233.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_internals_check-correctness-of-iteration_js-node_modules_core-js-13ab7c.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/vendors-node_modules_core-js_modules_es_promise_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_string_replace_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_join_js-node_modules_core-js_modules_es_regexp_-1a21e5.js",
+        "/build/courriels.js"
       ]
     },
     "app": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/817.37e2402d.js",
-        "/build/761.55345ec2.js",
-        "/build/app.29ce4535.js"
+        "/build/runtime.js",
+        "/build/vendors-node_modules_core-js_internals_export_js-node_modules_core-js_internals_html_js.js",
+        "/build/vendors-node_modules_core-js_modules_es_array_from_js-node_modules_core-js_modules_es_array_i-3637c8.js",
+        "/build/app.js"
       ],
       "css": [
-        "/build/app.71b7901e.css"
+        "/build/app.css"
       ]
     },
     "loadvideo": {
       "js": [
-        "/build/runtime.457970e9.js",
-        "/build/loadvideo.e1fc7c69.js"
+        "/build/runtime.js",
+        "/build/loadvideo.js"
       ]
     }
   }
