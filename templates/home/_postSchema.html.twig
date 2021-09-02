@@ -1,4 +1,4 @@
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
       "@context":"https://schema.org",
       "@type":"BlogPosting",
@@ -13,11 +13,11 @@
         "url" : "{{ currentUrl }}",
         "location" : {
             "@type" : "Place",
-            "name" : "{{ post.concertLocation }}",
-        },
+            "name" : "{{ post.concertLocation }}"
+        }
       },
       "datePublished":"{{ post.createdAt|date('c') }}",
       "headline":"{{ post.metaTitle }}",
-      "description":"{{ post.metaDescription }}",
+      "description":"{{ post.metaDescription }}"
     }
-    </script>
+</script>

@@ -1,4 +1,4 @@
-    <script type="application/ld+json">
+<script type="application/ld+json">
     {
       "@context":"https://schema.org",
       "@type":"LiveBlogPosting",
@@ -15,11 +15,11 @@
           "@type":"BlogPosting",
           "headline":"{{ post.metaTitle }}",
           "datePublished":"{{ post.createdAt|date('c') }}",
-{% if post.images|length > 0 %}
-          "image" : "{{ url('home') ~ 'images/' ~ post.images[0].name }}",
-{% endif %}
-        },
+        {% if post.images|length > 0 %}
+          "image" : "{{ url('home') ~ 'images/' ~ post.images[0].name }}"
+        {% endif %}
+        }{{ loop.last ? '' : ',' }}
 {% endfor %}
       ]
     }
-    </script>
+</script>
