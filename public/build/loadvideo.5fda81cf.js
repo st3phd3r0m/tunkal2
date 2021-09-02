@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[426],{7225:()=>{function e(e){e.preventDefault();var n=screen.width-60;new YT.Player(this.id,{height:Math.round(9*n/16),width:n,videoId:this.dataset.videoid,events:{onReady:t}})}function t(e){e.target.playVideo()}$((function(){$("a.player").on("click",e)}))}},e=>{var t;t=7225,e(e.s=t)}]);

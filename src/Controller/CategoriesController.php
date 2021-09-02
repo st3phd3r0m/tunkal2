@@ -88,16 +88,16 @@ class CategoriesController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            //Supression du lien correspondant
+            $this->removeLink($category);
             //Articles associés à la catégorie
             $posts = $category->getPosts();
             foreach ($posts as $post) {
-                //Rupture entre les commentaires et le produit
+                //Rupture entre les produits et la categorie
                 $category->removePost($post);
             }
             $entityManager->remove($category);
             $entityManager->flush();
-            //Supression du lien correspondant
-            $this->removeLink($category);
 
             //Envoi d'un message utilisateur
             $this->addFlash('success', 'La catégorie a bien été supprimée');
@@ -111,7 +111,7 @@ class CategoriesController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
         $link = new Links();
-        $link->setUrl('/cat/'.$category->getSlug());
+        $link->setUrl( $this->generateUrl('category', [ 'slug' => $category->getSlug() ] ) );
         $link->setType('category');
         $link->setTitle($category->getName());
         $link->setContent($category->getName());
@@ -123,7 +123,7 @@ class CategoriesController extends AbstractController
 
     public function removeLink(Categories $category): void
     {
-        $link = $this->linksRepository->findOneBy(['url' => '/cat/'.$category->getSlug()]);
+        $link = $this->linksRepository->findOneBy(['url' => $this->generateUrl('category', [ 'slug' => $category->getSlug() ] ) ]);
         if ($link) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($link);
