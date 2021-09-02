@@ -1,5 +1,56 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+    <url>
+        {# On vérifie si le nom d'hôte (hostname) est présent dans l'url #}
+        {# Si il n'y est pas, on l'ajoute #}
+        <loc>
+            {% if homeUrl.loc|replace({hostname:''}) == homeUrl.loc %}
+                {{ hostname }}{{ homeUrl.loc }}
+            {% else %}
+                {{ homeUrl.loc }}
+            {% endif %}
+        </loc>
+
+        {# Si il y a une date de modification #}
+        {% if homeUrl.lastmod is defined %}
+            <lastmod>{{homeUrl.lastmod}}</lastmod>
+        {% endif %}
+
+        {# Si il y a une fréquence de modification #}
+        {% if homeUrl.changefreq is defined %}
+            <changefreq>{{homeUrl.changefreq}}</changefreq>
+        {% endif %}
+
+        {# Si il y a une priorité #}
+        {% if homeUrl.priority is defined %}
+            <priority>{{homeUrl.priority}}</priority>
+        {% endif %}
+
+        {# Si il y a une image #}
+        {% if homeUrl.image is defined and homeUrl.image is not empty %}
+            <image:image>
+                <image:loc>
+                {{ asset('images/' ~ homeUrl.image.name )|imagine_filter('min300') }}
+                </image:loc>
+                <image:title>{{ homeUrl.title }}</image:title>
+            </image:image>
+        {% endif %}
+
+        {% for video in videos %}
+            <video:video>
+            {% if video.thumbnail_loc is defined and video.thumbnail_loc is not empty %}
+                <video:thumbnail_loc>{{ video.thumbnail_loc }}</video:thumbnail_loc>
+            {% endif %}
+                <video:title>{{ video.title }}</video:title>
+                <video:player_loc>{{ video.player_loc }}</video:player_loc>
+            {% if video.publication_date is defined and video.publication_date is not empty %}
+                <video:publication_date>{{ video.publication_date }}</video:publication_date>
+            {% endif %}
+            </video:video>            
+        {% endfor %}
+    </url>
+
    {% for url in urls %}
     <url>
         {# On vérifie si le nom d'hôte (hostname) est présent dans l'url #}

@@ -88,12 +88,23 @@ class HomeController extends AbstractController
     {
         $hostname = $request->getSchemeAndHttpHost();
         $post = $this->postsRepository->findOneBy(['slug'=>'accueil']);
-        $urls[] = [
+        $homeUrl = [
             'loc' =>  $this->generateUrl('home'), 
             'lastmod' => $post->getCreatedAt()->format('Y-m-d'),
             'image' => $post->getImages()->first(),
             'title' => $post->getMetaTitle(), 
         ];
+
+        $media = $this->linksRepository->findBy(['type' => 'external', 'position' => 'media']);
+
+        foreach ($media as $medium) {
+            $videos[] = [
+                'thumbnail_loc' => $medium->getImage(),
+                'title' => $medium->getTitle(),
+                'player_loc' => $medium->getUrl(),
+                'publication_date' => (null != $medium->getUploadedAt())?$medium->getUploadedAt()->format('Y-m-d'):null
+            ];
+        }
 
         $categories = $this->categoriesRepository->findAll();
         foreach ($categories as $category) {
@@ -120,6 +131,8 @@ class HomeController extends AbstractController
         
         return $this->render('home/sitemap.xml.twig', [
             'hostname' => $hostname,
+            'homeUrl' => $homeUrl,
+            'videos' => $videos,
             'urls' => $urls
         ]);
     }
