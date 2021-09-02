@@ -40,10 +40,12 @@
         {% for video in videos %}
             <video:video>
             {% if video.thumbnail_loc is defined and video.thumbnail_loc is not empty %}
-                <video:thumbnail_loc>{{ video.thumbnail_loc }}</video:thumbnail_loc>
+                <video:thumbnail_loc>
+                {{ asset('images/' ~ video.thumbnail_loc )|imagine_filter('min300') }}
+                </video:thumbnail_loc>
             {% endif %}
                 <video:title>{{ video.title }}</video:title>
-                <video:player_loc>{{ video.player_loc }}</video:player_loc>
+                <video:player_loc>{{ 'https://youtu.be/'~video.player_loc }}</video:player_loc>
             {% if video.publication_date is defined and video.publication_date is not empty %}
                 <video:publication_date>{{ video.publication_date }}</video:publication_date>
             {% endif %}

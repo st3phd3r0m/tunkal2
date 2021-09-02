@@ -63,7 +63,7 @@
         <ul>
             {% for link in links()|filter( link =>  link.position == 'media' )|filter( link => link.uploadedAt == null ) %}
             <li>
-                <a href='{{ link.url }}' title='{{ link.title }}' target='_blank'>
+                <a href='{{ 'https://youtu.be/'~ link.url }}' title='{{ link.title }}' target='_blank'>
                 <img src='{{ asset('images/YouTube_23392.ico') }}' alt='{{ link.imageAlt }}'>&nbsp;{{ link.content }}</a> 
             </li>
             {% endfor %}
