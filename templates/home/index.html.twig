@@ -51,24 +51,27 @@
     <section class='tracks'>
         <h2>Listen Tunkal music on Youtube : </h2>
         <ul>
+            {% set videoCount = 0 %}
             {% for link in links()|filter( link =>  link.position == 'media' )|filter( link => link.uploadedAt != null ) %}
             <li>
-                <a class='player' href='#' title='watch {{ link.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ link.url }}'>
+                <a class='player' href='#' title='watch {{ link.title }} on Youtube' id='player{{ videoCount }}' data-videoid='{{ link.url }}'>
                     <img class='video' src='{{ asset('images/' ~ link.image )|imagine_filter('min300') }}' alt='Thumbnail of {{ link.title }} video'>
                     <img src='{{ asset('images/YouTube_23392.ico') }}' alt='logo Youtube'>
                 </a>
             </li>
-            {% endfor %}	
+            {% set videoCount = videoCount + 1 %}
+            {% endfor %}
 
 {% if playlistItems != null and playlistItems is defined %}
 
             {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt > 2020 ) %}
             <li>
-                <a class='player' href='#' title='watch {{ playlistItem.snippet.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ playlistItem.snippet.resourceId.videoId }}'>
+                <a class='player' href='#' title='watch {{ playlistItem.snippet.title }} on Youtube' id='player{{ videoCount }}' data-videoid='{{ playlistItem.snippet.resourceId.videoId }}'>
                     <img class='video' src='{{ playlistItem.snippet.thumbnails.medium.url }}' alt='Thumbnail of {{ playlistItem.snippet.title }} video'>
                     <img src='{{ asset('images/YouTube_23392.ico') }}' alt='logo Youtube'>
                 </a>
             </li>
+            {% set videoCount = videoCount + 1 %}
             {% endfor %}	
 
             {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt < 2020 ) %}
