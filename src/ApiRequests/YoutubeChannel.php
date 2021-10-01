@@ -2,8 +2,6 @@
 
 namespace App\ApiRequests;
 
-use Exception;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class YoutubeChannel
