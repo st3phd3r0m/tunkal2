@@ -10,4 +10,4 @@ deploy-master:
     - chmod 700 ~/.ssh
     - cat $KNOWN_HOST > ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - lftp sftp://$IDENTIFIANT:$MOT_DE_PASSE@$NOM_HOTE -e "mirror -e -R -x bundles -x images -x media -x .htaccess public/ tunkal2/public/; mirror -e -R -x DataFixtures src/ tunkal2/src/; mirror -e -R templates/ tunkal2/templates/; mirror -e -R translations/ tunkal2/translations/; mput -O tunkal2/ .env composer.json composer.lock package-lock.json package.json symfony.lock webpack.config.js yarn.lock; rm -r tunkal2/var/; quit"
+    - lftp sftp://$IDENTIFIANT:$MOT_DE_PASSE@$NOM_HOTE -e "mirror -e -R -x bundles -x images -x media -x .htaccess public/ tunkal/public/; mirror -e -R config/ tunkal/config/; mirror -e -R -x DataFixtures src/ tunkal/src/; mirror -e -R templates/ tunkal/templates/; mirror -e -R translations/ tunkal/translations/; rm -r tunkal/var/; quit"
