@@ -108,7 +108,7 @@ class HomeController extends AbstractController
                 'thumbnail_loc' => $playlistItem->snippet->thumbnails->medium->url,
                 'title' => $playlistItem->snippet->title,
                 'description' => $playlistItem->snippet->description,
-                'player_loc' => $playlistItem->contentDetails->videoId,
+                'player_loc' => $playlistItem->snippet->resourceId->videoId,
                 'publication_date' => $playlistItem->snippet->publishedAt
             ];
         }

@@ -55,7 +55,7 @@
         <ul>
             {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt > 2020 ) %}
             <li>
-                <a class='player' href='#' title='watch {{ playlistItem.snippet.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ playlistItem.contentDetails.videoId }}'>
+                <a class='player' href='#' title='watch {{ playlistItem.snippet.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ playlistItem.snippet.resourceId.videoId }}'>
                     <img class='video' src='{{ playlistItem.snippet.thumbnails.medium.url }}' alt='Thumbnail of {{ playlistItem.snippet.title }} video'>
                     <img src='{{ asset('images/YouTube_23392.ico') }}' alt='logo Youtube'>
                 </a>
@@ -66,7 +66,7 @@
         <ul>
             {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt < 2020 ) %}
             <li>
-                <a href='{{ 'https://youtu.be/'~ playlistItem.contentDetails.videoId }}' title='{{ playlistItem.snippet.title }}' target='_blank'>
+                <a href='{{ 'https://youtu.be/'~ playlistItem.snippet.resourceId.videoId }}' title='{{ playlistItem.snippet.title }}' target='_blank'>
                 <img src='{{ asset('images/YouTube_23392.ico') }}' alt='{{ playlistItem.snippet.title }}'>&nbsp;{{ playlistItem.snippet.title }}</a> 
             </li>
             {% endfor %}
