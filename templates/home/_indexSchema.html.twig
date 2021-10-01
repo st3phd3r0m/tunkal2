@@ -38,9 +38,22 @@
             "@type": "VideoObject",
             "name": "{{ playlistItem.snippet.title }}",
             "description": "{{ playlistItem.snippet.description }}",
-            "embedUrl": "https://www.youtube.com/watch?v={{ playlistItem.snippet.resourceId.videoId }}",
+            "embedUrl": "https://youtu.be/{{ playlistItem.snippet.resourceId.videoId }}",
             "thumbnailUrl":"{{ playlistItem.snippet.thumbnails.medium.url }}",
             "uploadDate":"{{ playlistItem.snippet.publishedAt }}"
+        }{{ loop.last ? '' : ',' }}
+        {% endfor %}
+        {% for link in links()|filter( link =>  link.position == 'media' ) %}
+        ,
+        {
+            "@type": "VideoObject",
+            "name": "{{ link.title }}",
+            "description": "{{ link.content }}",
+            "embedUrl": "https://youtu.be/{{ link.url }}",
+            {% if link.image != null %}
+            "thumbnailUrl":"{{ asset('images/' ~ link.image )|imagine_filter('min300') }}",
+            {% endif %}
+            "uploadDate":"{{ link.uploadedAt|date('c') }}"
         }{{ loop.last ? '' : ',' }}
         {% endfor %}
         ],

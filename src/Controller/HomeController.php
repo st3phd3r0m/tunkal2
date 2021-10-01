@@ -113,6 +113,18 @@ class HomeController extends AbstractController
             ];
         }
 
+        $media = $this->linksRepository->findBy(['type' => 'external', 'position' => 'media']);
+
+        foreach ($media as $medium) {
+            $videos[] = [
+                'thumbnail_loc' => $medium->getImage(),
+                'title' => $medium->getTitle(),
+                'description' => $medium->getContent(),
+                'player_loc' => 'https://youtu.be/'.$medium->getUrl(),
+                'publication_date' => (null != $medium->getUploadedAt())?$medium->getUploadedAt()->format('Y-m-d'):null
+            ];
+        }
+
         $categories = $this->categoriesRepository->findAll();
         foreach ($categories as $category) {
             $post = $this->postsRepository->findOneBy(['slug'=> $category->getSlug() ]);
