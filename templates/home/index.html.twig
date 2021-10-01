@@ -48,23 +48,26 @@
         </p> #}
     </article>
 
+{% if playlistItems != null and playlistItems is defined %}
+
     <section class='tracks'>
         <h2>Listen Tunkal music on Youtube : </h2>
         <ul>
-            {% for link in links()|filter( link =>  link.position == 'media' )|filter( link => link.uploadedAt != null ) %}
+            {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt > 2020 ) %}
             <li>
-                <a class='player' href='#' title='watch {{ link.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ link.url }}'>
-                    <img class='video' src='{{ asset('images/' ~ link.image )|imagine_filter('min300') }}' alt='Thumbnail of {{ link.title }} video'>
+                <a class='player' href='#' title='watch {{ playlistItem.snippet.title }} on Youtube' id='player{{ loop.index0 }}' data-videoid='{{ playlistItem.contentDetails.videoId }}'>
+                    <img class='video' src='{{ playlistItem.snippet.thumbnails.medium.url }}' alt='Thumbnail of {{ playlistItem.snippet.title }} video'>
                     <img src='{{ asset('images/YouTube_23392.ico') }}' alt='logo Youtube'>
                 </a>
             </li>
             {% endfor %}	
         </ul>
+
         <ul>
-            {% for link in links()|filter( link =>  link.position == 'media' )|filter( link => link.uploadedAt == null ) %}
+            {% for playlistItem in playlistItems|filter( playlistItem => playlistItem.snippet.publishedAt < 2020 ) %}
             <li>
-                <a href='{{ 'https://youtu.be/'~ link.url }}' title='{{ link.title }}' target='_blank'>
-                <img src='{{ asset('images/YouTube_23392.ico') }}' alt='{{ link.imageAlt }}'>&nbsp;{{ link.content }}</a> 
+                <a href='{{ 'https://youtu.be/'~ playlistItem.contentDetails.videoId }}' title='{{ playlistItem.snippet.title }}' target='_blank'>
+                <img src='{{ asset('images/YouTube_23392.ico') }}' alt='{{ playlistItem.snippet.title }}'>&nbsp;{{ playlistItem.snippet.title }}</a> 
             </li>
             {% endfor %}
         </ul>
@@ -74,6 +77,9 @@
         {% endfor %}
         </div>
     </section>
+
+{% endif %}
+
 
 {% endblock %}
 

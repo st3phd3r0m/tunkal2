@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\ApiRequests\YoutubeChannel;
 use App\Entity\Categories;
 use App\Entity\Comments;
 use App\Entity\Courriels;
@@ -29,13 +30,15 @@ class HomeController extends AbstractController
     private CommentsRepository $commentsRepository;
     private LinksRepository $linksRepository;
     private CategoriesRepository $categoriesRepository;
+    private YoutubeChannel $youtubeChannel;
 
-    public function __construct(PostsRepository $postsRepository, CommentsRepository $commentsRepository, LinksRepository $linksRepository, CategoriesRepository $categoriesRepository)
+    public function __construct(PostsRepository $postsRepository, CommentsRepository $commentsRepository, LinksRepository $linksRepository, CategoriesRepository $categoriesRepository, YoutubeChannel $youtubeChannel)
     {
         $this->postsRepository = $postsRepository;
         $this->commentsRepository = $commentsRepository;
         $this->linksRepository = $linksRepository;
         $this->categoriesRepository = $categoriesRepository;
+        $this->youtubeChannel = $youtubeChannel;
     }
 
     /**
@@ -43,10 +46,13 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+        $playlistItems = $this->youtubeChannel->fetchYoutubePlaylistItems();
+
         $post = $this->newFirmPage('accueil');
 
         return $this->render('home/index.html.twig', [
             'post' => $post,
+            'playlistItems' => $playlistItems
         ]);
     }
 

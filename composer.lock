@@ -4701,23 +4701,24 @@
         },
         {
             "name": "symfony/http-client",
-            "version": "v4.4.25",
+            "version": "v4.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "00bb90bfb0b3823f700d7251735dced581f9dd90"
+                "reference": "6b900ffa399e25203f30f79f6f4a56b89eee14c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-client/zipball/00bb90bfb0b3823f700d7251735dced581f9dd90",
-                "reference": "00bb90bfb0b3823f700d7251735dced581f9dd90",
+                "url": "https://api.github.com/repos/symfony/http-client/zipball/6b900ffa399e25203f30f79f6f4a56b89eee14c2",
+                "reference": "6b900ffa399e25203f30f79f6f4a56b89eee14c2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "psr/log": "^1.0",
+                "psr/log": "^1|^2|^3",
                 "symfony/http-client-contracts": "^1.1.10|^2",
                 "symfony/polyfill-php73": "^1.11",
+                "symfony/polyfill-php80": "^1.16",
                 "symfony/service-contracts": "^1.0|^2"
             },
             "provide": {
@@ -4761,7 +4762,7 @@
             "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-client/tree/v4.4.25"
+                "source": "https://github.com/symfony/http-client/tree/v4.4.31"
             },
             "funding": [
                 {
@@ -4777,7 +4778,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T11:20:16+00:00"
+            "time": "2021-09-06T10:00:00+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
