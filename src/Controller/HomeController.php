@@ -101,14 +101,15 @@ class HomeController extends AbstractController
             'title' => $post->getMetaTitle(), 
         ];
 
-        $media = $this->linksRepository->findBy(['type' => 'external', 'position' => 'media']);
+        $playlistItems = $this->youtubeChannel->fetchYoutubePlaylistItems();
 
-        foreach ($media as $medium) {
+        foreach ($playlistItems as $playlistItem) {
             $videos[] = [
-                'thumbnail_loc' => $medium->getImage(),
-                'title' => $medium->getTitle(),
-                'player_loc' => $medium->getUrl(),
-                'publication_date' => (null != $medium->getUploadedAt())?$medium->getUploadedAt()->format('Y-m-d'):null
+                'thumbnail_loc' => $playlistItem->snippet->thumbnails->medium->url,
+                'title' => $playlistItem->snippet->title,
+                'description' => $playlistItem->snippet->description,
+                'player_loc' => $playlistItem->contentDetails->videoId,
+                'publication_date' => $playlistItem->snippet->publishedAt
             ];
         }
 
