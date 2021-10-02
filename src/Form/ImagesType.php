@@ -29,7 +29,7 @@ class ImagesType extends AbstractType
                     new Image([
                         'maxSize' => '2M',
                         'maxSizeMessage' => 'Votre image dépasse les 2Mo',
-                        'mimeTypes' => ['image/webp'],
+                        'mimeTypes' => ['image/webp', 'image/png', 'image/jpeg'],
                         'mimeTypesMessage' => 'Votre image doit être de type webp',
                     ]),
                 ],
